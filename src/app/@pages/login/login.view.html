@@ -1,0 +1,38 @@
+<div class="login_section animated fadeIn">
+  <div id="bgAnimarion" class="login_section_bg"></div>
+  <div class="login_section_form animated">
+    <!-- <div class="scan"></div> -->
+    <div class="login_section_logo">
+      <img src="assets/images/branding/logo.svg" alt="" width="210px">
+    </div>
+    <form class="" action="/dashboard" #loginForm="ngForm" novalidate (ngSubmit)="onSubmit()" #loginSubmit>
+      <div class="login_section_form_input">
+        <input type="text" name="username" #username="ngModel" [(ngModel)]="login.username" required
+          placeholder="Username">
+      </div>
+      <div class="login_section_form_input">
+        <input type="password" name="password" #password="ngModel" [(ngModel)]="login.password" required
+          placeholder="Password">
+      </div>
+      <div class="login_section_form_input">
+        <button [disabled]="loginForm.form.invalid" #loginSubmitButton>Sign In</button>
+      </div>
+    </form>
+  </div>
+  <div class="poweredby_text"><a href="https://www.datafabricx.com/" target="_blank">Powered by Datafabricx Ltd.</a>
+  </div>
+</div>
+
+<!-- <div class="alert alert-warning alert-dismissible fade {{(username.valid || username.untouched || password.valid || password.untouched) ? '' : 'show'}}" role="alert">
+  <strong>Hey!</strong> Username or Password cannot be blank!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div> -->
+
+<div class="alert alert-danger alert-dismissible wd-400 pos-fixed b-10 r-30 fade" role="alert">
+  <strong>Oops!</strong> {{errorMsg}}
+  <button type="button" class="close" (click)="closeAlert()">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>

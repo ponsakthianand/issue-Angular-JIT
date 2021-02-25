@@ -1,0 +1,12 @@
+<div class="notiAlert animated faster {{fade}}" *ngIf="confirmationVisible">
+  <div class="alertSection animated faster {{slide}}">
+    <!-- Alert POP Contents -->
+    <div class="alertContent">
+      {{message.message}}
+    </div>
+    <div class="alertAction">
+      <button type="button" class="btn btn-xs btn-dark" (click)="clickCancel()">{{message.cancel}}</button>
+      <button type="button" class="btn btn-xs btn-success" (click)="clickTrigger()">{{message.trigger}}</button>
+    </div>
+  </div>
+</div>

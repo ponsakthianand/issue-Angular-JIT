@@ -1,0 +1,131 @@
+//
+// Base styles
+//
+
+.alert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $alert-margin-bottom;
+  border: $alert-border-width solid transparent;
+  @include border-radius($alert-border-radius);
+  z-index: 1000;
+}
+
+// Headings for larger alerts
+.alert-heading {
+  // Specified to prevent conflicts of changing $headings-color
+  color: inherit;
+}
+
+// Provide class for links that match alerts
+.alert-link {
+  font-weight: $alert-link-font-weight;
+}
+
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.alert-dismissible {
+  padding-right: $close-font-size + $alert-padding-x * 2;
+
+  // Adjust close link position
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $alert-padding-y $alert-padding-x;
+    color: inherit;
+  }
+}
+
+
+// Alternate styles
+//
+// Generate contextual modifier classes for colorizing the alert.
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
+    box-shadow: 0 0 10px rgba(18, 29, 93, .3);
+    &:before {
+      content: "";
+      position: absolute;
+      height: calc(100% - 10px);
+      width: 7px;
+      left: 5px;
+      border-radius: 20px;
+      top: 5px;
+      background: theme-color-level($color, $alert-color-level);
+    }
+  }
+}
+
+.notiAlert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba($black, .6);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  @include border-radius($card-border-radius);
+  border: $card-border-width solid $card-border-color;
+  .alertSection {
+    background: $white;
+    width: 100%;
+    padding: 20px;
+  }
+  .alertContent {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .alertAction {
+    button {
+      margin: 5px;
+    }
+  }
+}
+
+.drawerAlert {
+  @extend .notiAlert;
+  text-align: left;
+  .alertSection {
+    background: $white;
+    width: 400px;
+    height: 100%;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    .drawer_close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      color: $gray-700;
+      &:hover {
+        color: $gray-900;
+      }
+    }
+  }
+  .docView {
+    @extend .alertSection;
+    right: 400px;
+    width: 800px;
+    z-index: 0;
+    box-shadow: -20px 0px 20px rgba($gray-900, .1) inset;
+    .docData {
+      border: 1px solid $border-color;
+      padding: 10px;
+      margin: 30px;
+      height: 90vh;
+      border-radius: 5px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

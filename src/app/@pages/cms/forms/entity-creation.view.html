@@ -1,0 +1,118 @@
+<div class="right_col" role="main">
+  <div class="settings mg-t-60 ht-90v pd-0" [perfectScrollbar]="config">
+    <div class="d-sm-flex align-items-center justify-content-between mg-b-30 mg-lg-b-25 mg-xl-b-30 ">
+      <h1 class="br-title mg-b-0">New Entity</h1>
+    </div>
+    <div class="mg-y-30">
+      <form [formGroup]="formData" (ngSubmit)="createEntity()">
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Name"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Name 2</label>
+            <input type="text" class="form-control" formControlName="name2" placeholder="Name 2"
+              [ngClass]="{ 'is-invalid': submitted && f.name2.errors }">
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" formControlName="DOB" placeholder="Date of Birth"
+              [ngClass]="{ 'is-invalid': submitted && f.DOB.errors }">
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Nationality</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="countrySearch" class="wd-100p" formControlName="nationality" [items]="country"
+              placeholder="Nationality" [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" [(ngModel)]="Ncount_ry">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Profession</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="ProfesstionSearch" class="wd-100p" formControlName="profession"
+              [items]="profession" placeholder="Profession"
+              [ngClass]="{ 'is-invalid': submitted && f.profession.errors }" [(ngModel)]="profe_ssion">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Residence</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="countrySearch" class="wd-100p" formControlName="Residence" [items]="country"
+              placeholder="Residence" [ngClass]="{ 'is-invalid': submitted && f.Residence.errors }" [(ngModel)]="Rcount_ry">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Personal/Corporate</label>
+            <ng-select [items]="personalCOrporate" formControlName="personel"
+             placeholder="Personal/Corporate" [ngClass]="{ 'is-invalid': submitted && f.personel.errors }" [(ngModel)]="perso"></ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Jurisdiction</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="countrySearch" class="wd-100p" formControlName="Jurisdiction" [items]="country"
+              placeholder="Jurisdiction" [ngClass]="{ 'is-invalid': submitted && f.Jurisdiction.errors }" [(ngModel)]="Jcount_ry">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label>Country of Incorporation</label>
+              <ng-select bindLabel="Name" bindValue="Code" [searchFn]="countrySearch" class="wd-100p" formControlName="countyIncorporate" [items]="country"
+                placeholder="Country of Incorporation" [ngClass]="{ 'is-invalid': submitted && f.countyIncorporate.errors }" [(ngModel)]="Ccount_ry">
+                <ng-template ng-option-tmp let-item="item">
+                  {{item.Name}}
+                  <small class="subOption">{{item.Code}}</small>
+                </ng-template>
+              </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Date of Incorp/Formation</label>
+            <input type="date" class="form-control" formControlName="IncorporationDate" placeholder="Date of Incorp/Formation"
+              [ngClass]="{ 'is-invalid': submitted && f.IncorporationDate.errors }">
+          </div>
+          <div class="form-group col-sm-3 mg-t-5">
+            <label>&nbsp;</label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" formControlName="IsOwner" id="IsOwner"
+                [ngClass]="{ 'is-invalid': submitted && f.IsOwner.errors }">
+              <label class="custom-control-label" for="IsOwner">Create Owner</label>
+            </div>
+          </div>
+          <!-- <div class="form-group col-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="IsBank" id="IsBank"
+                [ngClass]="{ 'is-invalid': submitted && f.IsBank.errors }">
+              <label class="custom-control-label" for="IsBank">Is Bank</label>
+            </div>
+          </div> -->
+          <div class="form-group col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="alertVisible">
+  <app-alert [alertData]='alertData' [alertVisible]='alertVisible' (cancel)='cancel()'>
+  </app-alert>
+</div>

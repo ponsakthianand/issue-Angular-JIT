@@ -1,0 +1,157 @@
+<div class="right_col" role="main">
+  <div class="settings mg-t-60 ht-90v pd-0" [perfectScrollbar]="config">
+    <div class="d-sm-flex align-items-center justify-content-between mg-b-30 mg-lg-b-25 mg-xl-b-30 ">
+      <h1 class="br-title mg-b-0">New Client</h1>
+    </div>
+    <div class="mg-y-30">
+      <form [formGroup]="formData" (ngSubmit)="createClientSetup()">
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label>Type</label>
+            <ng-select bindLabel="description" bindValue="Code" [searchFn]="clientTypeSearch" class="wd-100p" formControlName="clienttype" [items]="clientType" placeholder="Client Type"
+              [ngClass]="{ 'is-invalid': submitted && f.clienttype.errors }" [(ngModel)]="client_Type">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Code}}
+                <small class="subOption">{{item.description}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Client Name"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Formal Name</label>
+            <input type="text" class="form-control" formControlName="clientformalname" placeholder="Client Formal Name"
+              [ngClass]="{ 'is-invalid': submitted && f.clientformalname.errors }">
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Currency Code</label>
+            <ng-select bindLabel="description" bindValue="currencycode" [searchFn]="CurrencySearch" class="wd-100p" formControlName="currencycode" [items]="currencyCode" placeholder="Currency Code"
+              [ngClass]="{ 'is-invalid': submitted && f.currencycode.errors }" [(ngModel)]="currency_Code">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.description}}
+                <small class="subOption">{{item.currencycode}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Legal Code</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p" formControlName="legalcode" [items]="legalCode"
+              placeholder="Legal Code" [ngClass]="{ 'is-invalid': submitted && f.legalcode.errors }" [(ngModel)]="legal_Code">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>First Partition Code</label>
+            <ng-select bindLabel="description" bindValue="Code" [searchFn]="PartitionCodeSearch" class="wd-100p" formControlName="firstpartioncode" [items]="firstPartitionCode"
+              placeholder="First Partition Code" [ngClass]="{ 'is-invalid': submitted && f.firstpartioncode.errors }" [(ngModel)]="first_PartitionCode">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Code}}
+                <small class="subOption">{{item.description}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Trust Director</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p" formControlName="trustdirector" [items]="trustDirector"
+              placeholder="Trust Director" [ngClass]="{ 'is-invalid': submitted && f.trustdirector.errors }" [(ngModel)]="trust_Director">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Relationship Manager</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p" formControlName="relationmanager" [items]="relationshipManger"
+              placeholder="Relationship Manager" [ngClass]="{ 'is-invalid': submitted && f.relationmanager.errors }" [(ngModel)]="relationship_Manger">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Assistant Relationship Manager</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p"
+              formControlName="assistrelationmanger" [items]="assitrelationmanager" placeholder="Assistant Relationship Manager"
+              [ngClass]="{ 'is-invalid': submitted && f.assistrelationmanger.errors }" [(ngModel)]="assitrela_tionmanager">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Administrator</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p"
+              formControlName="administrator" [items]="administr" placeholder="Administrator"
+              [ngClass]="{ 'is-invalid': submitted && f.administrator.errors }" [(ngModel)]="adminis_tr">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Accountant</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p"
+              formControlName="accountant" [items]="accountant" placeholder="Accountant"
+              [ngClass]="{ 'is-invalid': submitted && f.accountant.errors }" [(ngModel)]="accountan_t">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="form-group col-sm-4">
+            <label>Client Activity Group</label>
+            <ng-select bindLabel="Name" bindValue="Code" [searchFn]="getDimentionCodeSearch" class="wd-100p"
+              formControlName="clientgroup" [items]="clientactivgroup" placeholder="Client Activity Group"
+              [ngClass]="{ 'is-invalid': submitted && f.clientgroup.errors }" [(ngModel)]="clientac_tivgroup">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}}
+                <small class="subOption">{{item.Code}}</small>
+              </ng-template>
+            </ng-select>
+          </div>
+
+          <div class="form-group col-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" formControlName="createfiscalyear" id="createfiscalyear"
+                [ngClass]="{ 'is-invalid': submitted && f.createfiscalyear.errors }">
+              <label class="custom-control-label" for="createfiscalyear">Create Fiscal Year</label>
+            </div>
+          </div>
+          <div class="form-group col-sm-3">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" formControlName="insertaddress" id="insertaddress"
+                [ngClass]="{ 'is-invalid': submitted && f.insertaddress.errors }">
+              <label class="custom-control-label" for="insertaddress">Insert Mailing Address</label>
+            </div>
+          </div>
+
+          <div class="form-group col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="alertVisible">
+  <app-alert [alertData]='alertData' [alertVisible]='alertVisible' (cancel)='cancel()'>
+  </app-alert>
+</div>

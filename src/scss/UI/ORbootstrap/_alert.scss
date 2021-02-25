@@ -1,0 +1,143 @@
+
+.alert {
+  padding: 12px 15px 12px 25px;
+  // &.alert-primary { @include alert-outline-variant($color-brand-01, $color-brand-01); }
+  // &.alert-secondary { @include alert-outline-variant($gray-600, $gray-500); }
+  // &.alert-success { @include alert-outline-variant($green, $green); }
+  // &.alert-error { @include alert-outline-variant($red, $red); }
+  // &.alert-warning { @include alert-outline-variant($yellow, $yellow); }
+  // &.alert-info { @include alert-outline-variant($cyan, $cyan); }
+  // &.alert-light { @include alert-outline-variant($gray-500, $gray-300); }
+  // &.alert-dark { @include alert-outline-variant($gray-700, $gray-600); }
+}
+
+// .alert-primary {
+//   color: #013682;
+//   background-color: #cce1fe;
+//   border-color: #b8d5fe; }
+//   .alert-primary hr {
+//     border-top-color: #9fc6fe; }
+//   .alert-primary .alert-link {
+//     color: #01214f; }
+
+// .alert-secondary {
+//   color: #3f4654;
+//   background-color: #e4e7ec;
+//   border-color: #d9dde5; }
+//   .alert-secondary hr {
+//     border-top-color: #cacfdb; }
+//   .alert-secondary .alert-link {
+//     color: #292e37; }
+
+// .alert-success {
+//   color: #085f2e;
+//   background-color: #cff1de;
+//   border-color: #bcebd1; }
+//   .alert-success hr {
+//     border-top-color: #a8e5c4; }
+//   .alert-success .alert-link {
+//     color: #043017; }
+
+// .alert-info {
+//   color: #00606e;
+//   background-color: #ccf1f6;
+//   border-color: #b8ebf3; }
+//   .alert-info hr {
+//     border-top-color: #a2e5ef; }
+//   .alert-info .alert-link {
+//     color: #00333b; }
+
+// .alert-warning {
+//   color: #856404;
+//   background-color: #fff3cd;
+//   border-color: #ffeeba; }
+//   .alert-warning hr {
+//     border-top-color: #ffe8a1; }
+//   .alert-warning .alert-link {
+//     color: #533f03; }
+
+// .alert-danger {
+//   color: #721c24;
+//   background-color: #f8d7da;
+//   border-color: #f5c6cb; }
+//   .alert-danger hr {
+//     border-top-color: #f1b0b7; }
+//   .alert-danger .alert-link {
+//     color: #491217; }
+
+// .alert-light {
+//   color: #7f7f81;
+//   background-color: #fdfdfe;
+//   border-color: #fcfcfd; }
+//   .alert-light hr {
+//     border-top-color: #ededf3; }
+//   .alert-light .alert-link {
+//     color: #666667; }
+
+// .alert-dark {
+//   color: #1f2533;
+//   background-color: #d8dae0;
+//   border-color: #c8ccd3; }
+//   .alert-dark hr {
+//     border-top-color: #babfc8; }
+//   .alert-dark .alert-link {
+//     color: #0c0e13; }
+
+.alert-secondary {
+  background-color: $gray-200;
+  border-color: $gray-300;
+}
+
+.alert-light {
+  background-color: darken($gray-100, 2%);
+  border-color: $gray-200;
+}
+
+.alert-dark {
+  background-color: $gray-500;
+  border-color: darken($gray-500, 3%);
+}
+
+.alert-dismissible .close {
+  padding: 0;
+  top: 9px;
+  right: 15px;
+  font-weight: $font-weight-medium;
+}
+
+
+// Outline style
+.alert-outline {
+  background-color: transparent;
+  border-width: 2px;
+  font-weight: $font-weight-medium;
+  padding: 11px 15px;
+  @include border-radius(3px);
+
+  // alert-outline-variant($text-color, $border-color);
+  &.alert-primary { @include alert-outline-variant($color-brand-01, $color-brand-01); }
+  &.alert-secondary { @include alert-outline-variant($gray-600, $gray-500); }
+  &.alert-success { @include alert-outline-variant($green, $green); }
+  &.alert-error { @include alert-outline-variant($red, $red); }
+  &.alert-warning { @include alert-outline-variant($yellow, $yellow); }
+  &.alert-info { @include alert-outline-variant($cyan, $cyan); }
+  &.alert-light { @include alert-outline-variant($gray-500, $gray-300); }
+  &.alert-dark { @include alert-outline-variant($gray-700, $gray-600); }
+}
+
+// Solid style
+.alert-solid {
+  border-width: 0;
+
+  &:not(.alert-secondary),
+  &:not(.alert-light) { color: $white; }
+
+  &.alert-primary { background-color: $color-brand-01; color: $white; }
+  &.alert-secondary { background-color: $gray-600; color: $white; }
+  &.alert-success { background-color: $green; color: $white; }
+  &.alert-error { background-color: $red; color: $white; }
+  &.alert-warning { background-color: $yellow; color: $gray-900; }
+  &.alert-info { background-color: $cyan; color: $white; }
+  &.alert-light { background-color: $gray-400; color: $gray-900; }
+  &.alert-dark { background-color: $gray-700; color: $white; }
+}

@@ -1,0 +1,106 @@
+//Common colors
+$red:                             #dc3545;
+$blue:                            #3b4b5d;
+$green:                           #10b759;
+$teal:                            #00cccc;
+$cyan:                            #00b8d4;
+$pink:                            #f10075;
+$indigo:                          #5b47fb;
+$orange:                          #fd7e14;
+$yellow:                          #ffc107;
+$purple:                          #6f42c1;
+$white:                           #FFFFFF;
+$black:                           #000000;
+
+//Gray
+$gray-50:                         #fafbfc;
+$gray-100:                        #f4f5f8;
+$gray-200:                        #e3e7ed;
+$gray-300:                        #cdd4e0;
+$gray-400:                        #b4bdce;
+$gray-500:                        #97a3b9;
+$gray-600:                        #7987a1;
+$gray-700:                        #596882;
+$gray-800:                        #3b4863;
+$gray-900:                        #1c273c;
+
+//Theme Colors
+$clean-grass-primary:             $white;
+$clean-grass-secondary:           #00b778;
+$golden-blue-primary:             #F6D55C;
+$golden-blue-secondary:           #002c50;
+$phlox-purple-primary:            #f5f6fa;
+$phlox-purple-secondary:          #646aeb;
+$ocean-blue-primary:              #f3f9ff;
+$ocean-blue-secondary:            #208cf5;
+$jet-black-primary:               #121212;
+$jet-black-secondary:             #343434;
+$midnight-green-primary:          #001c20;
+$midnight-green-secondary:        #073238;
+
+// Fonts
+$font-family-base:                -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family-sourcesans:          'Source Sans Pro', sans-serif;
+$font-family-roboto:              'Roboto', sans-serif;
+$font-family-lato:                'Lato', sans-serif;
+$font-family-gelasio:             'Gelasio', sans-serif;
+$font-family-arimo:               'Arimo', sans-serif;
+$font-family-arvo:                'Arvo', sans-serif;
+$font-family-poppins:             'Poppins', sans-serif;
+$font-family-rubik:               'Rubik', sans-serif;
+$font-family-helv:                'Helvetica Neue', Roboto, Arial, 'Droid Sans', sans-serif;
+$font-family-system:              -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+
+$font-weight-medium:              500;
+$font-weight-semibold:            600;
+$font-weight-bold:                700;
+
+$border-radius:                   .25rem !default;
+$border-radius-lg:                .25rem !default;
+$border-radius-sm:                .25rem !default;
+
+$icon-border-width:               .1rem;
+
+// Buttons + Forms
+$btn-focus-box-shadow:            none;
+$btn-active-box-shadow:           none;
+
+$input-btn-padding-y:             .46875rem;
+$input-btn-padding-y-sm:          .391rem;
+$input-btn-padding-y-lg:          .6rem;
+$input-btn-padding-x:             .625rem;
+
+$input-btn-font-size:             .875rem;
+$input-btn-font-size-sm:          .8125rem;
+
+// Buttons
+$btn-padding-x:                   .9375rem;
+$font-size-base:                  .875rem;
+
+$headings-font-weight:            $font-weight-medium;
+$headings-line-height:            1.25;
+$headings-font-weight:            $font-weight-medium;
+
+// Grid
+$grid-gutter-width:               30px;
+
+//Border-radius
+$border-50p: 50%;
+
+// Links
+$link-hover-decoration:           none;
+
+// Height
+$height-base:                     38px;
+$height-header:                   60px;
+$height-header-mobile:            55px;
+$height-footer:                   46px;
+
+// Width
+$width-sidebar:                   240px;
+
+// Marker
+$marker-icon-size:                16px;
+
+//Transition
+$transition-ease-3:               ease all 0.3s;

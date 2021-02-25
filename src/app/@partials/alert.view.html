@@ -1,0 +1,6 @@
+<div class="alert alert-solid alert-{{alertData.type}} alert-dismissible wd-400 pos-fixed b-10 r-30 fade show" role="alert" *ngIf="alertVisible">
+  {{alertData.message}}
+  <button type="button" class="close" (click)="closeAlert()">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>

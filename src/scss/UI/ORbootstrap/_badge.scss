@@ -1,0 +1,24 @@
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  font-family: $font-family-system;
+  padding: 3px 5px 4px;
+  @include border-radius(3px);
+  &.badge-primary { background-color: $color-brand-01; color: $white; }
+  &.badge-secondary { background-color: $gray-600; color: $white; }
+  &.badge-success { background-color: $green; color: $white; }
+  &.badge-error { background-color: $red; color: $white; }
+  &.badge-warning { background-color: $yellow; color: $gray-900; }
+  &.badge-info { background-color: $cyan; color: $white; }
+  &.badge-light { background-color: $gray-400; color: $gray-900; }
+  &.badge-dark { background-color: $gray-700; color: $white; }
+  &.badge-pink { background-color: $pink; color: $white; }
+}
+
+.badge-light { background-color: $gray-300; }
+
+.badge-pill {
+  padding-left: 8px;
+  padding-right: 8px;
+}

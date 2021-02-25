@@ -1,0 +1,47 @@
+
+.form-control {
+  color: $color-text-02;
+  font-size: inherit;
+  background: $header-color;
+  border-color: $input-border-color;
+
+  &:focus {
+    background: darken($header-color, 1%);
+  }
+
+  &::placeholder { color: $color-text-04; }
+
+  &:disabled,
+  &[readonly] { background-color: $color-ui-01; }
+}
+
+.input-group-text {
+  border: $border-color;
+}
+
+textarea.form-control { min-height: $height-base; }
+
+.form-group { margin-bottom: 20px; }
+
+.form-fieldset {
+  background-color: $body-color;
+  border: 1px solid $border-color;
+  padding: 20px 25px 25px;
+  @include border-radius();
+
+  .form-group:last-child { margin-bottom: 0; }
+
+  legend {
+    width: auto;
+    background-color: inherit;
+    padding: 0 10px;
+    position: relative;
+    margin-left: -10px;
+    text-transform: uppercase;
+    font-weight: $font-weight-semibold;
+    font-size: inherit;
+    color: $color-inverse-01;
+    letter-spacing: .5;
+    margin-bottom: 0;
+  }
+}

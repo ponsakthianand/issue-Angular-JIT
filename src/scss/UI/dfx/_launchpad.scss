@@ -1,0 +1,215 @@
+@mixin appsing($color1, $color2) {
+  background: rgba($color1,1);
+  border: 1px solid rgba($color1, 1);
+  .iconima {
+    svg {
+      fill: rgba($color2, 0.3);
+      stroke: rgba($color2, 1);
+      transition: ease all 0.5s;
+    }
+  }
+  .title {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba($color2, 1);
+  }
+  .current_prog {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: rgba($color2, 1);
+  }
+  &:hover {
+    background: $color1;
+    box-shadow: 5px 5px 30px rgba($color1, 1);
+    border: 1px solid rgba($color1, 1);
+    .iconima {
+      transition: ease all 0.5s;
+      svg {
+        fill: rgba($color2, 0.3);
+        stroke: rgba($color2, 1);
+        transform: scale(1.5);
+        transition: ease all 0.5s;
+      }
+    }
+    .title {
+      color: $color2;
+    }
+    .current_prog {
+      color: rgba($color2, 1);
+    }
+  }
+}
+
+.launching {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  position: relative;
+}
+
+.app {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 10px;
+  margin: 40px 20px;
+  height: 200px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+  transition: ease all 0.5s;
+  width: 200px;
+  min-width: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFF;
+  flex-direction: column;
+  a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  &_sep {
+    .app {
+      &:nth-of-type(1) {
+        @include appsing(#fff, $dashboard-color);
+      }
+      &:nth-of-type(2) {
+        @include appsing(#fff, $discovery-color);
+      }
+    }
+  }
+  &_sep2 {
+    .app {
+      &:nth-of-type(1) {
+        @include appsing(#fff, $classification-color);
+      }
+      &:nth-of-type(2) {
+        @include appsing(#fff, $searchengine-color);
+      }
+    }
+  }
+}
+
+.right_stats {
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: right;
+  &_title {
+    font-size: 20px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    span {
+      font-size: 25px;
+      display: block;
+      color: $color-brand-01;
+      line-height: 10px;
+      font-weight: 600;
+    }
+  }
+  &_boxes {
+    display: flex;
+    justify-content: flex-end;
+    .single {
+      text-align: center;
+      margin: 0 10px;
+      width: 20%;
+      &_title {
+        font-size: 13px;
+        color: $gray-700;
+      }
+      &_count {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.bottom_stats {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 50%;
+  &_data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    &_secs {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      perspective: 150px;
+      .count {
+        font-size: 100px;
+        font-weight: 900;
+        line-height: 1;
+        color: $white;
+      }
+      .desc {
+        font-size: 14px;
+        font-weight: 600;
+        // margin-bottom: 15px;
+        color: $white;
+      }
+      .shade {
+        width: 100%;
+        height: 20px;
+        background: #ccc;
+        filter: blur(10px);
+        opacity: .2;
+        border-radius: 50%;
+        transform: rotateX(60deg);
+      }
+    }
+  }
+  &_table {
+    perspective: 150px;
+    width: 80%;
+    &_top {
+      background: #E2CA9F;
+      height: 70px;
+      transform: rotateX(25deg);
+      border-radius: 5px;
+      position: relative;
+      top: 4px;
+    }
+    &_border {
+      background: #D3B079;
+      height: 20px;
+      width: 110.3%;
+      position: relative;
+      left: -60px;
+      border-radius: 3px;
+    }
+    &_shadow {
+      background: #C69B63;
+      height: 20px;
+    }
+    &_bottom {
+      background: #D3B079;
+      height: 30px;
+    }
+  }
+}

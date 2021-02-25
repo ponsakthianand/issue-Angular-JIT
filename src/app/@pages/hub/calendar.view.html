@@ -1,0 +1,100 @@
+<div class="pos-relative" role="main" *ngIf="defaultLanding">
+  <div class="d-sm-flex align-items-center justify-content-between mg-b-30 mg-lg-b-25 mg-xl-b-30 ">
+    <div class="d-flex">
+      <h1 class="br-title mg-b-0">Leave Calendar</h1>
+      <div class="mg-0 btn btn-outline-primary btn-sm pd-x-10 pd-y-2 mg-l-20 mg-t-10 ht-25" (click)="reloadData()">
+        Refresh <i-feather name="refresh-cw"></i-feather>
+      </div>
+    </div>
+  </div>
+  <div class="settings pd-0">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 pd-b-0">
+        <div class="dashboard_calendar bd-0">
+          <div class="col-md-3 col-sm-3 bg-white">
+            <div class="pd-y-10 pd-x-0">
+              <label class="tx-uppercase tx-sans tx-10 tx-medium tx-spacing-1 tx-color-03 pd-l-0 mg-b-10">By
+                Department</label>
+              <nav class="calendar-nav pd-l-0">
+                <a class="calendar allDepart" (click)="allDepartmentData(employeeUserId)">
+                  <span></span> All Department
+                </a>
+                <a class="calendar filterDepart" [ngClass]="{'show': showClass == depart}"
+                  *ngFor="let depart of departmentList" (click)="filterDepartment(depart, employeeData.user_Id)">
+                  <span></span> {{depart}}
+                </a>
+              </nav>
+            </div>
+          </div>
+          <div class="col-md-9 col-sm-9 calendar-content-body pd-r-10">
+            <full-calendar defaultView="dayGridMonth" [header]="{
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: ''
+                }" [plugins]="calendarPlugins" defaultView="dayGridMonth" [events]="leaveData" [displayEventTime]="false"
+              [eventLimit]="5" (eventClick)="eventClick($event)" (datesRender)="handleDateClick($event, employeeUserId)">
+            </full-calendar>
+            <!-- right: 'dayGridMonth,dayGridWeek,dayGridDay' -->
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="" *ngIf='visible'>
+    <app-drawer [visible]="visible" [subDrawer]="subDrawer" [subModel]="subModel" [subModelDoc]="subModelDoc"
+      (drOnClose)="close()" (hideDoc)="closeDocShow()">
+      <h6 class="mg-b-20"><strong>{{eventInfo.employeeName}}</strong> Leave inforamtion</h6>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Employee Name:</span><span>{{eventInfo.employeeName}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Department</span><span>{{eventInfo.department}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Leave From:</span><span>{{eventInfo.fromDate | date:'EEEE, MMMM d, y'}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Leave to:</span><span>{{eventInfo.toDate | date:'EEEE, MMMM d, y'}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Leave Type:</span><span>{{eventInfo.leaveType}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between tx-13">
+          <span class="tx-bold">Reason:</span><span>{{eventInfo.reason}}</span>
+        </li>
+      </ul>
+      <br>
+      <button class="btn btn-primary btn-sm" *ngIf="(entryId > 0)" (click)="loadiFrame(eventInfo, eventEmployeeId, entryId)">Cancel Leave</button>
+    </app-drawer>
+  </div>
+</div>
+
+<div *ngIf="alertVisible">
+  <app-alert [alertData]='alertData' [alertVisible]='alertVisible' (cancel)='cancel()'>
+  </app-alert>
+</div>
+
+<div class="right_col ht-100p" role="main" *ngIf="LoadForm">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 pd-b-0">
+      <div class="dashboard_graph_new">
+        <div class="row x_title">
+          <div class="col-md-6 pd-b-0">
+            <h3 class="pd-r-50">{{iframeData.leaveType}}</h3>
+          </div>
+          <div class="col-md-6 pd-b-0 tx-right">
+            <button class="btn btn-secondary btn-sm mg-l-10" (click)="closeForm(empId)">
+              <i-feather name="x"></i-feather> Close
+            </button>
+          </div>
+        </div>
+        <iframe class="full-screen-iframe" task-status='0' [src]="formUrl" name="preview-frame" frameborder="0" noresize="noresize"
+          data-view="fullScreenPreview" allow="geolocation 'self'; autoplay 'self'" class="ht-80v wd-100p">
+        </iframe>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

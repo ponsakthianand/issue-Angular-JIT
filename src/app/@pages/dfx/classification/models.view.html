@@ -1,0 +1,65 @@
+<div class="right_col" role="main">
+  <div class="settings mg-t-60 ht-85v pd-0 mg-b-50" [perfectScrollbar]="config">
+    <ul class="nav nav-line classification">
+      <li class="nav-item">
+        <a routerLink="{{classificationModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Models</a>
+      </li>
+      <li class="nav-item" *ngIf="showanalyst">
+        <a routerLink="{{classificationBuildModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Build Models</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="{{classificationPublishModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Publish Models</a>
+      </li>
+    </ul>
+    <div class="mg-y-30 modelsSec">
+      <div class="timeline-group tx-13 mg-r-10 pos-relative bd-0 ht-100v mg-b-100" *ngIf="(modelGroups.length > 0) && !dataLoader">
+        <div class="timeline-item mg-l-20" *ngFor="let alpha of modelGroups; let a = index">
+          <div class="timeline-body">
+            <div class="alphapetics {{a === 0 ? '' : 'collapsed'}} tx-uppercase" data-toggle="collapse" attr.href="#alphaSec_{{alpha.label}}" role="button" aria-expanded="false">{{alpha.label}}</div>
+            <div class="divider-text mg-t-10 pointer" data-toggle="collapse" attr.href="#alphaSec_{{alpha.label}}" role="button" aria-expanded="false">{{alpha.groups.length}} Models</div>
+            <div class="row collapse {{a === 0 ? 'show' : ''}} mg-t-5" id="alphaSec_{{alpha.label}}">
+              <div class="col-sm-2" *ngFor="let group of alpha.groups; let i = index">
+                <div class="class-card publish">
+                  <div class="dropdown-sec">
+                    <a href="" class="dropdown-link" data-toggle="dropdown">
+                      <i-feather name="more-vertical"></i-feather>
+                    </a>
+                    <div class="dropdown-menu models dropdown-menu-right">
+                      <!-- <a class="dropdown-item pointer"><i-feather name="search"></i-feather>Browse Model</a> -->
+                      <a class="dropdown-item pointer" (click)="open(group.model_id, group)"><i-feather name="layers"></i-feather>Child-types</a>
+                    </div>
+                  </div>
+                  <h4 class="ellipsis wd-85p">{{group.model}}</h4>
+                  <div class="tx-12 tx-color-03 mg-b-0 ellipsis wd-85p">{{group.parent}}</div>
+                  <span class="pos-absolute tx-color-03 tx-11 b-5 r-5">{{group.doc_count | shortNumber}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!(modelGroups.length > 0) && !apiRespondError && !apiAccessError && !dataLoader">
+        <div class="tx-center pos-relative wd-100p ht-100p">
+          <img src="assets/images/misc/empty3.svg" alt="" width="200px">
+        </div>
+      </div>
+      <app-lae [dataLoader]='dataLoader' [apiRespondError]='apiRespondError' [apiAccessError]='apiAccessError' [longWait]='longWait'></app-lae>
+    </div>
+  </div>
+</div>
+
+<div class="" *ngIf='visible'>
+  <app-drawer [visible]="visible" [subDrawer]="subDrawer" [subModel]="subModel" [subModelDoc]="subModelDoc" (drOnClose)="close()" (hideDoc)="closeDocShow()">
+    <h6 class="mg-0">{{parent.model_name}}</h6>
+    <div class="tx-12 tx-gray-700">{{docsCount}} Group{{(docsCount > 1) ? 's' : ''}} & {{totalDocs}} Documents found</div>
+    <hr>
+    <ul class="list-group" *ngIf="!dataDrawLoader">
+      <li class="list-group-item list-group-item-action" [class.active]="subDrawer.selectedIndex === i" *ngFor="let doc of DocList; let i = index;">
+        <a class="tx-gray-900 tx-13 d-flex justify-content-between pointer" (click)="openSubModelDoc(parent, doc, i)">
+          <span>{{doc.child ? doc.child : 'Untitled ' + (i+1)}}</span> <span>{{doc.doc_count}}</span>
+        </a>
+      </li>
+    </ul>
+    <app-lae [dataLoader]='dataDrawLoader' [apiRespondError]='apiDrawRespondError' [longWait]='longDrawWait'></app-lae>
+  </app-drawer>
+</div>

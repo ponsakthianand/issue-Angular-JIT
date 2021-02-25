@@ -1,0 +1,180 @@
+<div class="right_col ht-90v" role="main" [perfectScrollbar]="config">
+  <!-- top tiles -->
+  <div class="row">
+    <div class="tile_count">
+      <div class="col-md-20 col-sm-4 tile_stats_count tx-center">
+        <span class="count_top tx-bold tx-14">Source</span>
+        <div class="count">{{sourceCount ? (sourceCount | shortNumber) : '0'}}</div>
+      </div>
+      <div class="col-md-20 col-sm-4 tile_stats_count tx-center">
+        <span class="count_top tx-bold tx-14">Discovered</span>
+        <div class="count">{{discoveredCount ? (discoveredCount | shortNumber) : '0'}}</div>
+      </div>
+      <div class="col-md-20 col-sm-4 tile_stats_count tx-center">
+        <span class="count_top tx-bold tx-14">Migrated</span>
+        <div class="count green">{{migratedCount ? (migratedCount | shortNumber) : '0'}}</div>
+      </div>
+      <div class="col-md-20 col-sm-4 tile_stats_count tx-center">
+        <span class="count_top tx-bold tx-14">Models</span>
+        <div class="count">{{DocumentTrainedCount ? (DocumentTrainedCount | shortNumber) : '0'}}</div>
+      </div>
+      <div class="col-md-20 col-sm-4 tile_stats_count tx-center">
+        <span class="count_top tx-bold tx-14">Exceptions</span>
+        <div class="count">{{exceptionsCount ? (exceptionsCount | shortNumber) : '0'}}</div>
+      </div>
+    </div>
+  </div>
+  <!-- /top tiles -->
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 pd-b-0">
+      <div class="dashboard_graph">
+        <div class="row x_title">
+          <div class="col-md-6">
+            <h3>Discovered Vs Migrated</h3>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex justify-content-end">
+              <div class="mg-r-10" *ngIf="clearFilter">
+                <div class="mg-0 btn btn-outline-light btn-sm pd-x-10 pd-y-2" (click)="clearFilterData()">Clear Filter <i-feather name="x"></i-feather></div>
+              </div>
+              <div class="mg-r-10">
+                <div class="mg-0 btn btn-outline-primary btn-sm pd-x-10 pd-y-2" (click)="reloadData()">Refresh <i-feather name="refresh-cw"></i-feather></div>
+              </div>
+              <input type="text" #dateRangeValue name="daterangeInput" class="form-control wd-200 pd-y-0 ht-25 tx-12" daterangepicker
+              [options]="datePickerOptions" (selected)="dateFilter($event)" placeholder="Select date range"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-sm-9 ">
+          <apx-chart [series]="discoveredVsMigration.series" [chart]="discoveredVsMigration.chart" [legend]="discoveredVsMigration.legend" [xaxis]="discoveredVsMigration.xaxis"
+             [yaxis]="discoveredVsMigration.yaxis" [stroke]="discoveredVsMigration.stroke" [tooltip]="discoveredVsMigration.tooltip" [colors]="discoveredVsMigration.colors"
+            [dataLabels]="discoveredVsMigration.dataLabels" [fill]="discoveredVsMigration.fill" [responsive]="discoveredVsMigration.responsive" [labels]="discoveredVsMigration.labels">
+          </apx-chart>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <div class="x_title">
+            <h6>Top 5 Models</h6>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="col-md-12 col-sm-12 ">
+            <div *ngFor="let model of top5dataModel; let a = index">
+              <div class="tx-bold tx-13 d-flex justify-content-between">
+                <span>{{model.key | titlecase}}</span>
+                <span>{{model.doc_count | shortNumber}}</span>
+              </div>
+              <div class="mg-b-3">
+                <div class="progress progress_sm mg-b-15 ht-10"
+                  ngbTooltip="{{((model.doc_count/top5dataModelTotalCount)*100).toFixed(2)}}% - {{model.doc_count | shortNumber}} documents">
+                  <div class="progress-bar bg-green" role="progressbar"
+                    [ngClass]="'wd-' + ((model.doc_count/top5dataModelTotalCount)*100).toFixed() + 'p'"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mg-t-20">
+    <div class="col-md-4 col-sm-4 ">
+      <div class="x_panel tile ht-300">
+        <div class="x_title">
+          <h6>Top 5 Data Source View</h6>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div *ngFor="let source of top5dataSource; let a = index">
+            <div class="tx-bold tx-13 d-flex justify-content-between">
+              <span>{{source.key | titlecase}}</span>
+              <span>{{source.doc_count | shortNumber}}</span>
+            </div>
+            <div class="mg-b-3">
+              <div class="progress progress_sm mg-b-15 ht-10" ngbTooltip="{{((source.doc_count/top5dataSourceTotalCount)*100).toFixed(2)}}% - {{source.doc_count | shortNumber}} documents">
+                <div class="progress-bar bg-green" role="progressbar"
+                  [ngClass]="'wd-' + ((source.doc_count/top5dataSourceTotalCount)*100).toFixed() + 'p'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-4 ">
+      <div class="x_panel tile ht-300">
+        <div class="x_title">
+          <h6>Classification Status</h6>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="list-group mg-b-10">
+            <a class="list-group-item list-group-item-action d-flex justify-content-between">
+              <span>Classified</span>
+              <span>{{trainedDocumentSets.classified}}</span>
+            </a>
+            <a class="list-group-item list-group-item-action d-flex justify-content-between">
+              <span>Unclassified</span>
+              <span>{{trainedDocumentSets.unclassified}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <div class="col-md-4 col-sm-4 ">
+      <div class="x_panel tile ht-300">
+        <div class="x_title">
+          <h6>Top 5 Models</h6>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div *ngFor="let model of top5dataModel; let a = index">
+            <div class="tx-bold tx-13 d-flex justify-content-between">
+              <span>{{model.key | titlecase}}</span>
+              <span>{{model.doc_count | shortNumber}}</span>
+            </div>
+            <div class="mg-b-3">
+              <div class="progress progress_sm mg-b-15 ht-10"
+                ngbTooltip="{{((model.doc_count/top5dataModelTotalCount)*100).toFixed(2)}}% - {{model.doc_count | shortNumber}} documents">
+                <div class="progress-bar bg-green" role="progressbar"
+                  [ngClass]="'wd-' + ((model.doc_count/top5dataModelTotalCount)*100).toFixed() + 'p'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-md-4 col-sm-4 ">
+      <div class="x_panel tile ht-300 overflow_hidden">
+        <div class="x_title">
+          <h6>Exceptions</h6>
+          <div class="clearfix"></div>
+        </div>
+        <div class="list-group">
+          <a *ngIf="passwordProtectedCount" class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span>Password Protected</span>
+            <span>{{passwordProtectedCount}}</span>
+          </a>
+          <a *ngIf="zeroKbFilesCount" class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span>0 bytes</span>
+            <span>{{zeroKbFilesCount}}</span>
+          </a>
+          <a *ngIf="corrupteCount" class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span>Corrupted</span>
+            <span>{{corrupteCount}}</span>
+          </a>
+          <a *ngIf="ignoredCount" class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span>Ignored</span>
+            <span>{{ignoredCount}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

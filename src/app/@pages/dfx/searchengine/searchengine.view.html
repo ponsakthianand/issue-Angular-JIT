@@ -1,0 +1,410 @@
+<div class="right_col Searc_Col pd-0 bg-white" role="main">
+  <div class="content pd-0 {{contentClass}}">
+    <!-- <div class="pos-fixed t-65 r-20" *ngIf="!displayData">
+      <a routerLink="{{searchConfigPath}}" class="btn btn-primary btn-sm">
+        <i-feather name="settings"></i-feather> Configuration
+      </a>
+    </div> -->
+    <div class="search_wrapper">
+      <input #secSearchkey type="search" class="form-control wd-200 wd-sm-250 bd-gray-400" placeholder="Type something..." hidden>
+      <div class="result_section search_wraps">
+        <!-- Sorting Aggregation -->
+        <div class="aggregation" [perfectScrollbar]="config">
+          <div class="documnt_type" *ngIf="!exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#dateRange" aria-controls="dateRange">Date Range</div>
+            <div class="collapsed" id="dateRange">
+              <input type="text" #dateRangeValue name="daterangeInput" class="form-control" daterangepicker [options]="options" (selected)="dateRange($event)" attr.placeholder="Select date range" />
+            </div>
+          </div>
+          <div class="documnt_type" *ngIf="!exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#clientName" aria-controls="clientName">Client Name</div>
+            <div class="collapsed" id="clientName">
+              <input type="search" #clie class="form-control" placeholder="Acme Inc" (selectItem)="valueSelected($event,clientModel,'ClientName')" 
+              [(ngModel)]="clientModel" [ngbTypeahead]="clientFilter"/>
+            </div>
+
+            <div class="divider-text pointer" data-toggle="collapse" href="#typeFilter" aria-controls="typeFilter">Type</div>
+            <div class="collapsed" id="typeFilter">
+              <input type="search" #type class="form-control" placeholder="Fudiciary" (selectItem)="valueSelected($event,typeModel,'Type')" 
+              [(ngModel)]="typeModel" [ngbTypeahead]="typeFilter"/>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="aggregateExtension.length > 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#mimeType" aria-controls="mimeType">File Extension</div>
+            <div class=" collapse" id="mimeType">
+              <div class="sorting_list d-flex justify-content-between" *ngFor="let extention of aggregateExtension; let i = index;">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #exten type="checkbox" class="custom-control-input" id="type{{i}}" [(value)]="extention.label.split('/')[1]"
+                    [(checked)]="extention.selected" (change)="valueSelected($event,exten.value,'DocType')" [(ngModel)]="extenSelected[exten.value]">
+                  <label class="custom-control-label" for="type{{i}}">{{extention.label.split('/')[1].toLowerCase()}}</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{extention.count}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="aggregateAuthor.length > 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#authorFilter" aria-controls="authorFilter">Author</div>
+            <div class="collapse" id="authorFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngFor="let author of aggregateAuthor; let i = index;">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #auth type="checkbox" class="custom-control-input" id="auth{{i}}" [(value)]="author.label"
+                    [(checked)]="author.selected" (change)="valueSelected($event,auth.value,'Author')"[(ngModel)]="extenSelected[auth.value]">
+                  <label class="custom-control-label" for="auth{{i}}">{{author.label}}</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{author.count}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="aggregateClientPartion.length > 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#clientpartionFilter" aria-controls="clientpartionFilter">Client Partion Code</div>
+            <div class=" collapse" id="clientpartionFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngFor="let clientpartion of aggregateClientPartion; let i = index;">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #cpco type="checkbox" class="custom-control-input" id="cpco{{i}}" [(value)]="clientpartion.label"
+                    [(checked)]="clientpartion.selected" (change)="valueSelected($event,cpco.value,'Clientpartion')"[(ngModel)]="extenSelected[cpco.value]">
+                  <label class="custom-control-label" for="cpco{{i}}">{{clientpartion.label | uppercase}}</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{clientpartion.count}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="aggregateLocation.length > 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#locationFilter" aria-controls="locationFilter">Location</div>
+            <div class=" collapse" id="locationFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngFor="let location of aggregateLocation; let i = index;">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #loca type="checkbox" class="custom-control-input" id="loca{{i}}" [(value)]="location.label"
+                    [(checked)]="location.selected" (change)="valueSelected($event,loca.value,'Location')"[(ngModel)]="extenSelected[loca.value]">
+                  <label class="custom-control-label" for="loca{{i}}">{{location.label}}</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{location.count}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="aggregateDepartment.length > 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#departmentFilter" aria-controls="departmentFilter">Department</div>
+            <div class=" collapse" id="departmentFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngFor="let department of aggregateDepartment; let i = index;">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #depar type="checkbox" class="custom-control-input" id="depar{{i}}" [(value)]="department.label"
+                    [(checked)]="department.selected" (change)="valueSelected($event,depar.value,'Department')"[(ngModel)]="extenSelected[depar.value]">
+                  <label class="custom-control-label" for="depar{{i}}">{{department.label}}</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{department.count}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="filescountmigrated !== 0 || filescountnonmigrated !== 0 || !exception">
+            <div class="divider-text pointer" data-toggle="collapse" href="#migratedFilter" aria-controls="migratedFilter">Migrated</div>
+            <div class="collapse" id="migratedFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescountmigrated !== 0">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #migrS type="checkbox" [checked]="migrationSuccess" class="custom-control-input" id="migrS"
+                    (change)="getDataMigratedFiles($event)">
+                  <label class="custom-control-label" for="migrS">Included</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescountmigrated}}</div>
+              </div>
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescountnonmigrated !== 0">
+                <div class="custom-control custom-checkbox ellipsis">
+                  <input #migrF type="checkbox" [checked]="migrationFailed" class="custom-control-input" id="migrF"
+                    (change)="getDataNonMigratedFiles($event)">
+                  <label class="custom-control-label" for="migrF">Excluded</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescountnonmigrated}}</div>
+              </div>  
+            </div>
+          </div>
+
+          <div class="documnt_type" *ngIf="filescount0KB !== 0 || filescountencrypt !== 0 || filescountcorrupted !== 0 || filescountignored !== 0">
+            <div class="divider-text pointer tx-error" data-toggle="collapse" href="#discoveryFilter" aria-controls="discoveryFilter">Discovery Failed</div>
+            <div class="collapse" id="discoveryFilter">
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescountencrypt !== 0">
+                <div class="custom-control custom-radio ellipsis">
+                  <input type="radio" name="exception" [checked]="exceptionPass" class="custom-control-input" id="passwordprotected" (change)="getDataPasswordFiles($event)">
+                  <label class="custom-control-label" for="passwordprotected">Password Protected</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescountencrypt}}</div>
+              </div>
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescount0KB !== 0">
+                <div class="custom-control custom-radio ellipsis">
+                  <input type="radio" name="exception"[checked]="exceptionZero" class="custom-control-input" id="zerokb" (change)="getDataZeroKB($event)">
+                  <label class="custom-control-label" for="zerokb">0kb files</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescount0KB}}</div>
+              </div>
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescountcorrupted !== 0">
+                <div class="custom-control custom-radio ellipsis">
+                  <input type="radio" name="exception"[checked]="exceptionCorrupted" class="custom-control-input" id="corrupted" (change)="getDataCorrupted($event)">
+                  <label class="custom-control-label" for="corrupted">Corrupted files</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescountcorrupted}}</div>
+              </div>
+              <div class="sorting_list d-flex justify-content-between" *ngIf="filescountignored !== 0">
+                <div class="custom-control custom-radio ellipsis">
+                  <input type="radio" name="exception"[checked]="exceptionIgnored" class="custom-control-input" id="ignored" (change)="getDataIgnoredFiles($event)">
+                  <label class="custom-control-label" for="ignored">Ignored files</label>
+                </div>
+                <div class="counts tx-12 mg-l-10 tx-gray-400">{{filescountignored}}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Data Results -->
+        <div class="data_result">
+        <!-- <button (click)="previous()">previous</button>{{pageCount}}<button">Next</button> -->
+          <div class="result">
+            <div class="result_list" [perfectScrollbar]="config">
+              <div class="result_sorting d-flex justify-content-between">
+                <div class="shows" *ngIf="SearchResultCount">
+                  {{SearchResultCount.value}} documents found.
+                </div>
+                <div class="d-flex justify-content-end pd-r-20">
+                  <div class="mg-r-10" *ngIf="migrationSF || exception || extArray.length > 0 || autArray.length > 0 || cpcArray.length > 0 || locArray.length > 0 || depArray.length > 0|| migArrayS.length > 0 || migArrayF.length > 0 || cliArray.length > 0 || typArray.length > 0 || clearDate">
+                    <div class="mg-0 btn btn-outline-light btn-sm pd-x-10 pd-y-2" (click)="clearAll()">Clear Filter <i-feather
+                        name="x"></i-feather>
+                    </div>
+                  </div>
+                  <div class="dropdown" *ngIf="searchResult.length > 0">
+                    <a class="sort_button dropdown-toggle" data-display="static" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Sort by
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                      <li class="dropdown-item pointer" (click)="sort(sortNameList)">{{sortName}}</li>
+                      <!-- <li class="dropdown-item pointer" (click)="sort('asc')">Old Documents</li> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="searchTags d-flex wd-100p mg-b-10 pd-x-10">
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of extArray">
+                  <span>{{tag}}</span> <span class="clos" (click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of autArray">
+                  <span>{{tag}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of cpcArray">
+                  <span>{{tag | uppercase}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of locArray">
+                  <span>{{tag}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of depArray">
+                  <span>{{tag}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="migrationSuccess">
+                  <span>Migration Success</span> <span class="clos"(click)="removeFromFilter('migrated')">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="migrationFailed">
+                  <span>Migration Failed</span> <span class="clos"(click)="removeFromFilter('nonmigrated')">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of cliArray">
+                  <span>{{tag}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngFor="let tag of typArray">
+                  <span>{{tag}}</span> <span class="clos"(click)="removeFromFilter(tag)">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="dateField.length > 0">
+                  <span>{{dateField.created.from}} - {{dateField.created.to}}</span> <span class="clos">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="exceptionPass">
+                  <span>Password Protected</span> <span class="clos" (click)="removeFromFilter('exceptionPass')">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="exceptionZero">
+                  <span>0kb files</span> <span class="clos" (click)="removeFromFilter('exceptionZero')">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="exceptionCorrupted">
+                  <span>Corrupted files</span> <span class="clos" (click)="removeFromFilter('exceptionCorrupted')">X</span>
+                </div>
+                <div class="findTag d-flex justify-content-between" *ngIf="exceptionIgnored">
+                  <span>Ignored files</span> <span class="clos" (click)="removeFromFilter('exceptionIgnored')">X</span>
+                </div>
+              </div>
+              <div *ngIf="displayData">
+                <div class="result_brief" [class.active]="selectedIndex === i" *ngFor="let result of displaySearchResult; let i = index;" (click)="goDetailInfo(result, i)">
+                  <div class="title d-flex">
+                    <span class="fiv-hct fiv-icon-{{result.fileName.split('.')[1].toLowerCase()}}"></span>
+                    <div class="name_secs">
+                      <!-- <a href="{{result.lfUrl ? result.lfUrl : result.filePath}}" class="tx-color-01 d-block" target="_blank"> -->
+                        <!-- <span [innerHTML]="result.fileName"></span> -->
+                      <!-- </a> -->
+                      <div (click)="fileEvent(result.filePath)">
+                        <a target="_blank">{{result.fileName}}</a>
+                      </div>
+                     
+                      <!-- Kukudocs -->
+                      <div class="info">
+                        <span class="dateTimes">
+                          {{result.lastModified | date:'medium'}}
+                        </span>
+                        {{result.dmsLinkID}}
+                        <span class="type" *ngIf="result.dmsLinkID">
+                          <a href="https://cloudimanage.com/work/link/d/{{result.dmsLinkID}}" target="_blank" class="lfLinkIcon"><img src="assets/images/misc/imanage.svg" width="24px" alt=""></a>
+                        </span>
+                        <span class="type">
+                          Accuracy: {{result.score }}
+                        </span>
+                        <!-- <span class="type" *ngIf="result.highlight">
+                          {{result.highlight.content ? result.highlight.content.length : '0' }} match found.
+                        </span> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="description" *ngIf="result.highlight">
+                    <span *ngIf="result.highlight.content">Content:</span><div class="delist" *ngFor="let content of result.highlight.content | slice:0:2" [innerHTML]="content"></div>
+                    <div *ngIf="result.highlight['partitioncode']">Client PartitionCode:<div class="delist" *ngFor="let content of result.highlight['partitioncode'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <div *ngIf="result.highlight['author.keyword']">Author:<div class="delist" *ngFor="let content of result.highlight['author.keyword'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <span *ngIf="result.highlight.pd_subtype">Pd_Subtype:</span><div class="delist" *ngIf="result.highlight.pd_subtype" [innerHTML]="result.highlight.pd_subtype"></div>
+                    <span *ngIf="result.highlight.content">Content:</span><div class="delist" *ngIf="result.highlight.content" [innerHTML]="result.highlight.content"></div>
+                    <span *ngIf="result.highlight.resourcename">Resource Name:</span><div class="delist" *ngIf="result.highlight.resourcename" [innerHTML]="result.highlight.resourcename"></div>
+                    <div *ngIf="result.highlight['clientname.keyword'] || result.highlight['clientname']">Client Name:<div class="delist" *ngFor="let content of result.highlight['clientname.keyword'] ? result.highlight['clientname.keyword'] :result.highlight['clientname'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <span *ngIf="result.highlight.mg_clientcode">Client Code:</span><div class="delist" *ngIf="result.highlight.mg_clientcode" [innerHTML]="result.highlight.mg_clientcode"></div>
+                    <div *ngIf="result.highlight['pd_type.keyword']">Pd Type:<div class="delist" *ngFor="let content of result.highlight['pd_type.keyword'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <div *ngIf="result.highlight['location.keyword']">Location:<div class="delist" *ngFor="let content of result.highlight['location.keyword'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <div *ngIf="result.highlight['department.keyword']">Department:<div class="delist" *ngFor="let content of result.highlight['department.keyword'] | slice:0:2" [innerHTML]="content"></div></div>
+                    <span *ngIf="result.highlight.dmsid">DMS ID:</span><div class="delist" *ngIf="result.highlight.dmsid" [innerHTML]="result.highlight.dmsid"></div>
+                    <span *ngIf="result.highlight.clientid">Client ID:</span><div class="delist" *ngIf="result.highlight.clientid" [innerHTML]="result.highlight.clientid"></div>
+                    <span *ngIf="result.highlight.uri">URI:</span><div class="delist" *ngIf="result.highlight.uri" [innerHTML]="result.highlight.uri"></div>
+                    <span *ngIf="result.highlight.mimetype">Mime Type:</span><div class="delist" *ngIf="result.highlight.mimetype" [innerHTML]="result.highlight.mimetype"></div>
+                  </div>
+                </div>
+                <div class="result_brief" *ngIf="!displayData">
+                  No result found.
+                </div>
+                <div class="mg-y-20" *ngIf="SearchResultCount.value > 10">
+                  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="SearchResultCount.value" [(page)]="pageCount" maxSize="5" aria-label="Default pagination" [boundaryLinks]="true" (pageChange) = "pageChange()"></ngb-pagination>
+                </div>
+              </div>
+            </div>
+            <div class="result_detail" [perfectScrollbar]="config" *ngIf="resultDesc">
+              <div class="closeRe" (click)="closeDetailInfo()">X</div>
+              <div class="infos">
+                <div class="title d-flex">
+                  <span class="fiv-hct fiv-icon-{{resultDesc.fileName.split('.')[1]}}"></span>
+                  <div class="name_secs">
+                    <a href="{{resultDesc.filePath}}" target="_blank" class="tx-color-01">
+                      {{resultDesc.fileName}}
+                    </a>
+                    <div class="info">
+                      <span class="dateTimes">
+                        {{resultDesc.lastModified | date:'medium'}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="divider-text">Meta Data</div>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Author</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.Author ? resultDesc.Author : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Mime Type</span>
+                    <span class="ellipsis wd-70p tx-gray-800 tx-12 tx-right">
+                      {{resultDesc.mimeType ? resultDesc.mimeType : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Size</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.streamSize ? (resultDesc.streamSize | filesize) : '0'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Indexed</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.indexed ? (resultDesc.indexed | date:'medium') : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Modified</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.lastModified ? (resultDesc.lastModified | date:'medium') : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Created</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.created ? (resultDesc.created | date:'medium') : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">File Path</span>
+                    <span class="ellipsis wd-70p tx-gray-800 tx-12 tx-right" placement="top" ngbTooltip="{{resultDesc.filePath}}">
+                      {{resultDesc.filePath ? resultDesc.filePath : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Location</span>
+                    <span class="ellipsis wd-70p tx-gray-800 tx-12 tx-right" placement="top" ngbTooltip="{{resultDesc.location}}">
+                      {{resultDesc.location ? resultDesc.location : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5">
+                    <span class="tx-bold tx-11 tx-gray-600">Department</span>
+                    <span class="ellipsis wd-70p tx-gray-800 tx-12 tx-right" placement="top" ngbTooltip="{{resultDesc.department}}">
+                      {{resultDesc.department ? resultDesc.department : 'NA'}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5" *ngIf="resultDesc.parent">
+                    <span class="tx-bold tx-11 tx-gray-600">
+                      Category
+                    </span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.parent}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5" *ngIf="resultDesc.model">
+                    <span class="tx-bold tx-11 tx-gray-600">
+                      Sub Category
+                    </span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.model}}
+                    </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between tx-13 pd-x-10 pd-y-5" *ngIf="resultDesc.child">
+                    <span class="tx-bold tx-11 tx-gray-600">Child Category</span>
+                    <span class="tx-gray-800 tx-12">
+                      {{resultDesc.child ? resultDesc.child : 'NA'}}
+                    </span>
+                  </li>
+                </ul>
+                <div class="description" *ngIf="resultDesc.highlight">
+                  <div class="divider-text">Extracted Data</div>
+                  <div class="description">
+                    <div class="delist" *ngFor="let content of resultDesc.highlight.content | slice:0:2" [innerHTML]="content"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.clientpartioncode" [innerHTML]="resultDesc.highlight.clientpartioncode">
+                    </div>
+                    <div class="delist" *ngIf="resultDesc.highlight.pd_subtype" [innerHTML]="resultDesc.highlight.pd_subtype"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.content" [innerHTML]="resultDesc.highlight.content"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.resourcename" [innerHTML]="resultDesc.highlight.resourcename"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.clientname" [innerHTML]="resultDesc.highlight.clientname"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.mg_clientcode" [innerHTML]="resultDesc.highlight.mg_clientcode"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.pd_type" [innerHTML]="resultDesc.highlight.pd_type"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.dmsid" [innerHTML]="resultDesc.highlight.dmsid"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.clientid" [innerHTML]="resultDesc.highlight.clientid"></div>
+                    <div class="delist" *ngIf="resultDesc.highlight.uri" [innerHTML]="resultDesc.highlight.uri">ri}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-lae [dataLoader]='dataLoader' [apiRespondError]='apiRespondError' [apiAccessError]='apiAccessError' [longWait]='longWait'></app-lae>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.4)" size="default" type="ball-spin-clockwise">  
+  <p style="color: black">Loading... </p>  
+  </ngx-spinner>

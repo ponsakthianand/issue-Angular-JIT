@@ -1,0 +1,33 @@
+$file-icon-css-path: 'scss/file-icons/icons' !default;
+
+.fiv-background {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+@mixin file-family( $short, $mult ) {
+  .fiv-#{$short} {
+    @extend .fiv-background;
+    position: relative;
+    display: inline-block;
+    line-height: 32px;
+    width: 32px;
+    margin-right: 5px;
+    &:before {
+      content: '\00a0';
+    }
+    &.dash {
+      line-height: 20px;
+      width: 20px;
+    }
+  }
+}
+
+@mixin file-icon( $family, $short, $ext ) {
+  .fiv-#{$short} {
+    &.fiv-icon-#{$ext} {
+      background-image: url('#{$file-icon-css-path}/#{$family}/#{$ext}.svg');
+    }
+  }
+}

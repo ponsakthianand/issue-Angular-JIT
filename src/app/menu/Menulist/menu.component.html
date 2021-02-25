@@ -1,0 +1,47 @@
+<div class="nav_menu_flo">
+  <div class="ments">
+    <div class="top-menu">
+      <div class="top-menu__item">
+        <div class="top-menu__label">
+          <ion-icon name="apps" size="small" class="tx-white"></ion-icon>
+        </div>
+        <div class="top-menu-sub">
+          <div class="row">
+            <div class="col-6" *ngIf="myHubMenu">
+              <a routerLink="{{hubLandingPath}}" (click)="expandNavigation('hub')" [ngClass]="{'active': hub}"
+                [routerLinkActive]="['active']">
+                <!-- <a data-toggle="collapse" (click)="expandNavigation('dms')" role="button" aria-expanded="false"> -->
+                <img src="assets/images/icons/hub.svg" width="30px" class="logo_small" alt="">
+                <span>My Hub</span>
+              </a>
+            </div>
+            <div class="col-6" *ngIf="eDiscoveryMenu">
+              <a routerLink="{{dashBoardPath}}" (click)="expandNavigation('dfx')" [ngClass]="{'active': dfx}"
+                [routerLinkActive]="['active']">
+                <img src="assets/images/icons/dfx.svg" width="30px" class="logo_small" alt="">
+                <span>eDiscovery</span>
+              </a>
+            </div>
+            <div class="col-6 pd-b-0" *ngIf="businessCentralMenu">
+              <!-- <a data-toggle="collapse" (click)="expandNavigation('cms')" role="button" aria-expanded="false"> -->
+              <a routerLink="{{cmsLandingPath}}" (click)="expandNavigation('cms')" [ngClass]="{'active': cms}"
+                [routerLinkActive]="['active']">
+                <img src="assets/images/icons/cms.svg" width="30px" class="logo_small" alt="">
+                <span>Business Central</span>
+              </a>
+            </div>
+            <div class="col-6 pd-b-0 pd-l-0" *ngIf="dmsMenu">
+              <!-- <a data-toggle="collapse" (click)="expandNavigation('cms')" role="button" aria-expanded="false"> -->
+              <a routerLink="{{dmsLandingPath}}" (click)="expandNavigation('dms')" [ngClass]="{'active': dms}"
+                [routerLinkActive]="['active']">
+                <img src="assets/images/icons/dms.svg" width="30px" class="logo_small" alt="">
+                <span>DMS</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-submenu [dfx]="dfx" [dms]="dms" [cms]="cms" [hub]="hub"></app-submenu>
+</div>

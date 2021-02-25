@@ -1,0 +1,178 @@
+<div class="right_col" role="main">
+  <div class="settings mg-t-60 ht-85v pd-0 mg-b-50" [perfectScrollbar]="config">
+    <ul class="nav nav-line classification">
+      <li class="nav-item">
+        <a routerLink="{{classificationModelPath}}" [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActive]="['active']" class="nav-link">Models</a>
+      </li>
+      <li class="nav-item" *ngIf="showanalyst">
+        <a routerLink="{{classificationBuildModelPath}}" [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActive]="['active']" class="nav-link">Build Models</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="{{classificationPublishModelPath}}" [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActive]="['active']" class="nav-link">Publish
+          Models</a>
+      </li>
+    </ul>
+    <div class="pd-y-30 pos-relative">
+      <div *ngIf="groupsListShow" class="mg-t-0">
+        <div class="row" *ngIf="!dataLoader">
+          <div class="pos-absolute t-10 r-10" *ngIf="selectedGroup.length > 0 && !trainingrunning">
+            <button type="button" class="btn btn-success btn-sm btn-block mg-l-5" *ngIf="showadmin" (click)="trainModel()">Training</button>
+          </div>
+          <div class="pos-absolute t-10 r-10 tx-success tx-bold" *ngIf="trainingrunning && (unTrainedGroups.length > 0)">
+            <div class="tx-medium tx-success tx-center tx-15">
+              <span class="spinner-grow spinner-grow-sm tx-success" role="status"></span>
+              Currently Training is running
+            </div>
+          </div>
+          <div class="col-sm-2" *ngFor="let group of unTrainedGroups; let a = index">
+            <div class="class-card train" [attr.data-groupid]="group.group_id" (click)="selectModelforTraining(a, group)" [class.active]="hightlightStatus[a]">
+              <div class="dropdown-sec" *ngIf="showanalyst">
+                <a href="" class="dropdown-link" data-toggle="dropdown">
+                  <i-feather name="more-vertical"></i-feather>
+                </a>
+                <div class="dropdown-menu models dropdown-menu-right">
+                  <a class="dropdown-item pointer" (click)="buildModelform(group)">
+                    <i-feather name="edit"></i-feather>Edit Model
+                  </a>
+                </div>
+              </div>
+              <h4 class="ellipsis wd-90p">{{group.model}}</h4>
+              <div class="tx-12 tx-color-03 mg-b-0 ellipsis wd-90p">{{group.parent}}</div>
+            </div>
+          </div>
+          <div class="col-12" *ngIf="!(unTrainedGroups.length > 0) && !apiRespondError && !apiAccessError && !dataLoader">
+            <div class="tx-center pos-relative wd-100p ht-100p">
+              <img src="assets/images/misc/empty3.svg" alt="" width="200px">
+            </div>
+          </div>
+        </div>
+        <app-lae [dataLoader]='dataLoader' [apiRespondError]='apiRespondError' [apiAccessError]='apiAccessError' [longWait]='longWait'></app-lae>
+        <div class="mg-y-30 pos-relative" *ngIf="readyToPublishGroups.length > 0 && !publishrunning">
+          <div class="divider-text mg-t-30 mg-b-50">Ready to Publish</div>
+          <div class="pos-absolute t-15 r-10" *ngIf="showadmin">
+            <button type="button" class="btn btn-success btn-sm btn-block mg-l-5" (click)="pusblishModel()">Publish</button>
+          </div>
+          <div class="row">
+            <div class="col-sm-2" *ngFor="let group of readyToPublishGroups">
+              <div class="class-card publish">
+                <div class="dropdown-sec" *ngIf="showanalyst">
+                  <a href="" class="dropdown-link" data-toggle="dropdown">
+                    <i-feather name="more-vertical"></i-feather>
+                  </a>
+                  <div class="dropdown-menu models dropdown-menu-right">
+                    <a class="dropdown-item pointer" (click)="buildModelform(group)">
+                      <i-feather name="edit"></i-feather>Edit Model
+                    </a>
+                  </div>
+                </div>
+                <h4 class="ellipsis wd-90p">{{group.model}}</h4>
+                <div class="tx-12 tx-color-03 mg-b-0">{{group.parent}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mg-y-30 pos-relative" *ngIf="publishrunning">
+          <div class="divider-text mg-t-10 mg-b-20">Publish model Status</div>
+          <div class="tx-medium tx-success tx-center tx-15">
+            <span class="spinner-grow spinner-grow-sm tx-success" role="status"></span>
+            Currently models publishing process is running
+          </div>
+        </div>
+        <app-lae [dataLoader]='dataLoaderP && !dataLoader' [apiRespondError]='apiRespondErrorP && !apiRespondError' [apiAccessError]='apiAccessErrorP && !apiAccessError' [longWait]='longWaitP && !longWait'></app-lae>
+      </div>
+      <div class="row" *ngIf="editModelShow">
+        <div class="col-6">
+          <h5 class="tx-gray-800 mg-b-30">Document Preview ({{group.child ? group.child : 'No Child Name'}})</h5>
+          <div class="card pd-10 randomDoc">
+            <a class="tx-color-01 d-block" target="_blank" *ngFor="let docs of randomDoc">
+              <div class="fileNmaeData">
+                <div class="fiv-hct fiv-icon-{{docs.resourceName.split('.')[1].toLowerCase()}}"></div>
+                <div class="name_secs" (click)="fileEvent(docs.uri)">
+                  <span class="ellipsis wd-90p d-block tx-bold">{{docs.resourceName}}</span>
+                  <span class="ellipsis wd-90p d-block tx-color-03">{{docs.uri}}</span>
+                </div>
+              
+              </div>
+            </a>
+          </div>
+          <input id="files" style="display:none" type="file" name="files[]" multiple="false">
+          <button id="load-btn" style="display:none">Clickme</button>
+         
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-secondary mg-l-10 pos-absolute t-0 r-20"
+            (click)="closeBuildModelform()">Cancel</button>
+          <h5 class="tx-gray-800 mg-b-30">Edit Model ({{group.child ? group.child : 'No Child Name'}})</h5>
+          <form [formGroup]="modelData" action="" (ngSubmit)="buildModel(group)">
+            <div class="row pd-x-5" *ngIf="ExModel">
+              <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                <label>Model Subtype<span class="tx-15 tx-error">*</span></label>
+                <div class="d-flex justify-content-between">
+                  <ng-select [searchable]="true" class="wd-100p" formControlName="subType" [items]="fullModel" bindLabel="model"
+                    bindValue="model" placeholder="Subtype"></ng-select>
+                  <!-- <input id="typeahead-http" type="text" formControlName="subType" class="form-control autoSuggestion" [class.is-invalid]="searchFailed"
+                    [(ngModel)]="model" [ngbTypeahead]="search" placeholder="Subtype" /> -->
+                  <button type="button" class="btn btn-primary mg-l-10" (click)="newModel()">+</button>
+                </div>
+              </div>
+              <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                <label>Model ChildType</label>
+                <input type="text" class="form-control" formControlName="childType" placeholder="Indian Passport">
+              </div>
+              <div class="form-group col-sm-6 mg-b-0 pd-b-0">
+                <button type="button" class="btn btn-error btn-block mg-r-5" (click)="revokeModel(group)">Revoke Model</button>
+              </div>
+              <div class="form-group col-sm-6 mg-b-0 pd-b-0">
+                <button type="submit" class="btn btn-primary btn-block">Update Model</button>
+              </div>
+            </div>
+            <div class="mg-t-20 pos-relative" *ngIf="NewModel">
+              <div class="divider-text mg-y-30">New Model</div>
+              <div class="pos-absolute t-20 r-0">
+                <button type="button" class="btn btn-xs btn-error mg-l-10" (click)="closeNewModel()">X</button>
+              </div>
+              <div class="row pd-x-5">
+                <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                  <label>New Model Type<span class="tx-15 tx-error">*</span></label>
+                  <input id="typeahead-http" type="text" formControlName="Type" class="form-control autoSuggestion" [ngClass]="{ 'is-invalid': submitted && f.Type.errors }"
+                    [(ngModel)]="modelTyped" [ngbTypeahead]="modelType" placeholder="Type" />
+                </div>
+                <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                  <label>New SubType<span class="tx-15 tx-error">*</span></label>
+                  <input id="typeahead-http" type="text" formControlName="subType" class="form-control autoSuggestion" [ngClass]="{ 'is-invalid': submitted && f.subType.errors }"
+                  [(ngModel)]="modelsub" [ngbTypeahead]="searchSub" placeholder="SubType" />
+                </div>
+                <div class="form-group col-sm-6 mg-b-0 pd-b-0">
+                  <label>New ChildType</label>
+                  <input type="text" class="form-control" placeholder="ChildType">
+                </div>
+                <div class="form-group col-sm-6 mg-b-0 pd-b-0 mg-t-25">
+                  <button type="submit" class="btn btn-primary btn-block mg-l-5">Build Model</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="tx-center pos-relative" *ngIf="!(unTrainedGroups.length > 0) || !(readyToPublishGroups.length > 0)">
+      <img src="assets/images/misc/empty3.svg" alt="" width="200px">
+    </div> -->
+  </div>
+</div>
+
+<div class="" *ngIf="confirmationVisible">
+  <app-confirmation [message]='message' [confirmationVisible]='confirmationVisible' (cancel)='cancelConfirm()' (trigger)='Trigger(triggerMethod)' #confirmation></app-confirmation>
+</div>
+
+<div *ngIf="alertVisible">
+  <app-alert [alertData]='alertData' [alertVisible]='alertVisible' (cancel)='cancel()'>
+  </app-alert>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.4)" size="default" type="ball-spin-clockwise">  
+  <p style="color: black">Loading... </p>  
+  </ngx-spinner>

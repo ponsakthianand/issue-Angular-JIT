@@ -1,0 +1,10 @@
+<div class="tx-center errorSec" *ngIf="dataLoader && !apiRespondError && !apiAccessError">
+  <img src="assets/images/loading/loading_nodata_animated.svg" alt="" width="200px">
+  <div class="tx-15 mg-t-10 animated fadeIn" *ngIf="longWait">No data received... Still trying.</div>
+</div>
+<div class="tx-center errorSec" *ngIf="apiRespondError && !apiAccessError">
+  <img src="assets/images/misc/networkError.svg" alt="" width="300px">
+</div>
+<div class="tx-center errorSec" *ngIf="apiAccessError">
+  <img src="assets/images/misc/accessRestricted.svg" alt="" width="300px">
+</div>

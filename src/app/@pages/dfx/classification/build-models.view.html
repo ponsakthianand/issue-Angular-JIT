@@ -1,0 +1,106 @@
+<div class="right_col" role="main">
+  <div class="settings mg-t-60 ht-85v pd-0 mg-b-50" [perfectScrollbar]="config">
+    <ul class="nav nav-line classification">
+      <li class="nav-item">
+        <a routerLink="{{classificationModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Models</a>
+      </li>
+      <li class="nav-item" *ngIf="showanalyst">
+        <a routerLink="{{classificationBuildModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Build Models</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="{{classificationPublishModelPath}}" [routerLinkActiveOptions]="{ exact: true }" [routerLinkActive]="['active']" class="nav-link">Publish
+          Models</a>
+      </li>
+    </ul>
+    <div class="mg-y-30">
+      <div class="row" *ngIf="groupsListShow && !dataLoader">
+        <div class="col-sm-2" *ngFor="let group of groupsList">
+          <div class="class-card build" (click)="buildModelform(group)">
+            <h4 class="ellipsis wd-90p">Group_{{group.group_id}}</h4>
+            <div class="tx-12 tx-color-03 mg-b-0">{{group.doc_count}} Documents matched</div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!(groupsList.length > 0) && !apiRespondError && !apiAccessError && !dataLoader">
+        <div class="tx-center pos-relative wd-100p ht-100p">
+          <img src="assets/images/misc/empty3.svg" alt="" width="200px">
+        </div>
+      </div>
+      <app-lae [dataLoader]='dataLoader' [apiRespondError]='apiRespondError' [apiAccessError]='apiAccessError' [longWait]='longWait'>
+      </app-lae>
+      <div class="row" *ngIf="buildModelShow">
+        <div class="col-6">
+          <h5 class="tx-gray-800 mg-b-30">Document Preview for Group_{{group.group_id}}</h5>
+          <div class="card pd-10 randomDoc">
+            <a (click)="copyText(docs.uri)" class="tx-color-01 d-block" target="_blank" *ngFor="let docs of randomDoc">
+              <div class="fileNmaeData">
+                <div class="fiv-hct fiv-icon-{{docs.resourcename.split('.')[1].toLowerCase()}}"></div>
+                <div class="name_secs" (click)="fileEvent(docs.uri)">
+                  <span class="ellipsis wd-90p d-block tx-bold">{{docs.resourcename}}</span>
+                  <span class="ellipsis wd-90p d-block tx-color-03">{{docs.uri}}</span>
+                </div>     
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-secondary mg-l-10 pos-absolute t-0 r-20" (click)="closeBuildModelform()">Cancel</button>
+          <h5 class="tx-gray-800 mg-b-30">Build Model (Group_{{group.group_id}})</h5>
+          <form [formGroup]="modelData" (ngSubmit)="buildModel(group)">
+            <div class="row pd-x-5" *ngIf="ExModel">
+              <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                <label>Model Subtype<span class="tx-15 tx-error">*</span></label>
+                <div class="d-flex justify-content-between">
+                  <ng-select [searchable]="true" class="wd-100p" formControlName="subType" [items]="fullModel" placeholder="Subtype" [ngClass]="{ 'is-invalid': submitted && f.subType.errors }"></ng-select>
+                  <button type="button" class="btn btn-primary mg-l-10" (click)="newModel()">+</button>
+                </div>
+              </div>
+              <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                <label>Model Child Type (Optional)</label>
+                <input type="text" class="form-control" formControlName="childType" placeholder="Indian Passport">
+              </div>
+              <div class="form-group col-sm-6 mg-b-0 pd-b-0"></div>
+              <div class="form-group col-sm-6 mg-b-0 pd-b-0">
+                <button type="submit" class="btn btn-primary btn-block">Build Model</button>
+              </div>
+            </div>
+            <div class="mg-t-20 pos-relative" *ngIf="NewModel">
+              <div class="divider-text mg-y-30">New Model</div>
+              <div class="pos-absolute t-10 r-0">
+                <button type="button" class="btn btn-xs btn-error mg-l-10" (click)="closeNewModel()">X</button>
+              </div>
+              <div class="row pd-x-5">
+                <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                  <label>New Model Type<span class="tx-15 tx-error">*</span></label>
+                  <input id="typeahead-http" type="text" formControlName="Type" required class="form-control autoSuggestion" [ngClass]="{ 'is-invalid': submitted && f.Type.errors }"
+                    [(ngModel)]="modelTyped" [ngbTypeahead]="modelType" placeholder="KYC" />
+                </div>
+                <div class="form-group col-sm-6 mg-b-10 pd-b-10">
+                  <label>New SubType<span class="tx-15 tx-error">*</span></label>
+                  <input id="typeahead-http" type="text" formControlName="subType" required class="form-control autoSuggestion" [ngClass]="{ 'is-invalid': submitted && f.subType.errors }"
+                    [(ngModel)]="modelsub" [ngbTypeahead]="searchSub" placeholder="Passport" />
+                </div>
+                <div class="form-group col-sm-6 mg-b-0 pd-b-0">
+                  <label>New Child Type (Optional)</label>
+                  <input type="text" class="form-control" formControlName="childType" placeholder="Indian Passport">
+                </div>
+                <div class="form-group col-sm-6 mg-b-0 pd-b-0 mg-t-25">
+                  <button type="submit" class="btn btn-primary btn-block">Build Model</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div *ngIf="alertVisible">
+  <app-alert [alertData]='alertData' [alertVisible]='alertVisible' (cancel)='cancel()'>
+  </app-alert>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.4)" size="default" type="ball-spin-clockwise">  
+  <p style="color: black">Loading... </p>  
+  </ngx-spinner>

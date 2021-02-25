@@ -1,0 +1,104 @@
+.login {
+  background: $bg-color;
+  // background: radial-gradient(circle, rgba(3,56,82,1) 0%, #040506 100%);
+  width: 100%;
+  height: 100vh;
+  &.success {
+    .login_section_form {
+      box-shadow: 0 0 200px 50px #035238;
+    }
+    // background: radial-gradient(circle, rgba(#035238,1) 0%, #040506 100%);
+  }
+  &.fail {
+    .login_section_form {
+      box-shadow: 0 0 200px 50px #520303;
+    }
+    // background: radial-gradient(circle, rgba(#520303,1) 0%, #040506 100%);
+  }
+  &_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    &_form {
+      width: 300px;
+      height: 250px;
+      background: rgba($color-brand-01, .8);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 0 200px 50px $login-shadow-color;
+      position: relative;
+      transition: ease all 0.5s;
+      padding: 10px;
+      .scan {
+        background: rgb(0,255,229);
+        background: -webkit-linear-gradient(bottom, rgba(0,255,229,0) 0%, rgba(0,255,229,.3) 55%, rgba(255,255,255,0) 100%);
+        background: -o-linear-gradient(bottom, rgba(0,255,229,0) 0%, rgba(0,255,229,.3) 55%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(to top, rgba(0,255,229,0) 0%, rgba(0,255,229,.3) 55%, rgba(255,255,255,0) 100%);
+        width: 300px;
+        height: 100px;
+        position: absolute;
+        animation: scan 5s infinite;
+      }
+      form {
+        input {
+          border: 1px solid $border-color;
+          padding: 10px 15px;
+          margin: 0 0 10px;
+          display: block;
+          width: 250px;
+          border-radius: 3px;
+          &:focus {
+            outline: none;
+          }
+        }
+        button {
+          background: $color-brand-01;
+          color: $white;
+          display: block;
+          padding: 10px 15px;
+          border: 0;
+          cursor: pointer;
+          border-radius: 3px;
+          width: 100%;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+    &_bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
+  }
+}
+@keyframes scan {
+  0% {
+    top: 7%;
+  }
+  50% {
+    top: 70%;
+  }
+  100% {
+    top: 7%;
+  }
+}
+
+.poweredby_text {
+  position: fixed;
+  bottom: 20px;
+  a {
+    color: $color-inverse-01;
+  }
+}

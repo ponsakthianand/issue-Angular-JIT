@@ -1,0 +1,285 @@
+<div class="right_col ht-90v pos-relative" role="main" [perfectScrollbar]="config" *ngIf="defaultLanding">
+  <div class="settings mg-t-10 pd-0">
+    <div class="d-sm-flex align-items-center justify-content-between mg-b-30 mg-lg-b-20 mg-xl-b-20">
+      <h1 class="br-title mg-b-0">My Hub</h1>
+      <div class="d-flex justify-content-between pd-l-20 wd-450">
+        <div class="media wd-33p">
+          <div class="media-body tx-center">
+            <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold tx-nowrap mg-b-5 mg-md-b-8">Local
+            </h6>
+            <h4 class="tx-18 tx-normal tx-rubik mg-b-0">{{localClock | date:'hh:mm a'}}</h4>
+          </div>
+        </div>
+        <div class="media wd-33p mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+          <div class="media-body tx-center">
+            <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Geneva</h6>
+            <h4 class="tx-18 tx-normal tx-rubik mg-b-0">{{genevaClock | uppercase}}</h4>
+          </div>
+        </div>
+        <div class="media wd-33p mg-t-20 mg-sm-t-0 mg-sm-l-15 mg-md-l-40">
+          <div class="media-body tx-center">
+            <h6 class="tx-sans tx-uppercase tx-10 tx-spacing-1 tx-color-03 tx-semibold mg-b-5 mg-md-b-8">Jersey</h6>
+            <h4 class="tx-18 tx-normal tx-rubik mg-b-0">{{jerseyClock | uppercase}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 pd-b-0">
+        <div class="dashboard_calendar bd-0">
+          <div class="col-md-9 col-sm-9 calendar-content-body pd-r-10">
+            <div class="x_title mg-t-15 pos-relative">
+              <h6 class=" tx-primary">Announcements</h6>
+            </div>
+            <div class="row">
+              <div class="col-8">
+                <div class="media-list pd-t-20">
+                  <div class="d-sm-flex pd-b-20">
+                    <div class="media-body">
+                      <a href="#" class="d-block tx-uppercase tx-11 tx-medium mg-b-5 tx-primary">CryptoNinja</a>
+                      <h6><a href="#" class="link-01">Dow Futures, Bitcoin Teeter as Markets Wait for FOMC Bounce</a>
+                      </h6>
+                      <p class="tx-color-03 tx-13 mg-b-0">As the unwelcome bearish momentum returns to all top
+                        cryptocurrency
+                        markets,
+                        most of this morning’s excitement...</p>
+                    </div><!-- media-body -->
+                  </div>
+                  <div class="d-sm-flex pd-b-20">
+                    <div class="media-body">
+                      <a href="#" class="d-block tx-uppercase tx-11 tx-medium mg-b-5 tx-primary">CNN</a>
+                      <h6><a href="#" class="link-01">XRP Price Remains Bearish as XRP/BTC Drops Below 7,800 Satoshi</a>
+                      </h6>
+                      <p class="tx-color-03 tx-13 mg-b-0">Liquidity has shifted away from the top gaining crypto assets,
+                        with only
+                        six
+                        of the week’s 30 top performing markets...</p>
+                    </div><!-- media-body -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <vg-player>
+                  <video class="ht-200" style="width: 337px;" controls #myMedia [vgMedia]="myMedia" id="my-video"
+                    src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+                    type="video/mp4">
+                  </video>
+                </vg-player>
+              </div>
+            </div>
+            <hr class="pd-t-20 bd-1 mg-b-0 pd-b-0">
+            <div class="row">
+              <div class="col-4">
+                <div class="card bg-primary-light ht-100p">
+                  <div class="card-header d-sm-flex align-items-start justify-content-between">
+                    <h6 class="lh-5 mg-b-0">Staff is on Vacation/Leave for Today</h6>
+                  </div><!-- card-header -->
+                  <div class="card-body pd-b-15 pd-t-0 pd-x-10">
+                    <div class="d-flex justify-content-between" *ngIf="absenceData">
+                      <div *ngFor="let head of header">
+                        <h5>{{head}}</h5>
+                        <ul class="list-unstyled profile-info-list" *ngFor="let abs of absenceData">
+                          <li *ngIf="abs.jurisdiction == head">{{abs.employeeName}}</li>
+                        </ul>
+                      </div>
+                      
+                      <!-- <table class="table table-borderless table-sm tx-13 tx-nowrap mg-b-0">
+                        <thead>
+                          <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
+                            <th *ngFor="let head of header">{{head}}</th>
+                          </tr>
+                        </thead>
+                        <tbody class="tx-11">
+                          <tr *ngFor="let abs of absenceData">
+                            <td class="tx-medium" *ngFor="let head of header">
+                              {{abs.jurisdiction == head ? abs.employeeName : ''}}</td>
+                          </tr>
+                        </tbody>
+                      </table> -->
+                    </div><!-- table-responsive -->
+                    <div class="tx-center tx-medium" *ngIf="!absenceData">
+                      No Absence today!
+                    </div>
+                  </div><!-- card-body -->
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card bg-primary-light">
+                  <div class="card-header d-sm-flex align-items-start justify-content-between">
+                    <h6 class="lh-5 mg-b-0">What's the latest with BCORP?</h6>
+                  </div><!-- card-header -->
+                  <div class="card-body pd-y-15 pd-x-10">
+                    <vg-player>
+                      <video style="width: 337px; height: 205px;" controls #myMedia [vgMedia]="myMedia" id="my-video"
+                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+                        type="video/mp4">
+                      </video>
+                    </vg-player>
+                  </div><!-- card-body -->
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card bg-primary-light">
+                  <div class="card-header d-sm-flex align-items-start justify-content-between">
+                    <h6 class="lh-5 mg-b-0">Did you know?</h6>
+                  </div><!-- card-header -->
+                  <div class="card-body pd-y-15 pd-x-10">
+                    <ul>
+                      <li><a href="#" class="tx-primary" target="_blank">Quick tech tips</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Fun Facts</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Birthday Announcements</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Employee anniversary</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Fun Facts</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Video training guides</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Fun Facts</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Birthday Announcements</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Employee anniversary</a></li>
+                      <li><a href="#" class="tx-primary" target="_blank">Video training guides</a></li>
+                    </ul>
+                  </div><!-- card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-3">
+            <div class="x_title mg-t-15">
+              <h6 class=" tx-primary pd-l-20">Quick Links</h6>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 pd-l-25" style="height: 220px;" [perfectScrollbar]="config">
+              <ul class="list-unstyled profile-info-list pd-t-20" *ngIf="formList.length > 0">
+                <li *ngFor="let link of formList; let a = index" class="ht-20">
+                  <a class="d-flex" (click)="loadiFrame(link)">
+                    <i-feather name="globe" class="mg-r-5"></i-feather> <span class="tx-13 tx-bold">{{link.name}}</span>
+                  </a>
+                </li>
+              </ul>
+              <app-lae [dataLoader]='loadForm' [apiRespondError]='false' [apiAccessError]='false' [longWait]='false'>
+              </app-lae>
+              <div class="tx-center pd-20 tx-bold" *ngIf="!loadForm && !(formList.length > 0)">
+                Quick links not available
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- <div class="x_title mg-t-15 mg-b-0 bd-0">
+              <h6 class=" tx-primary pd-l-20">World Clock</h6>
+              <div class="clearfix"></div>
+            </div> -->
+            <div class="col-md-12 col-sm-12 pd-l-25 mg-t-30">
+              <div class="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
+                <h6 class="tx-15 mg-b-3 tx-center">What would you like to see here?</h6>
+                <div class="wd-100p tx-center pd-20">
+                  <img src="assets/images/misc/question.svg" width="200px" alt="">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="clearfix"></div>
+            <div class="x_title mg-t-15 mg-b-0 bd-0">
+              <h6 class=" tx-primary pd-l-20">Office Apps</h6>
+              <div class="clearfix"></div>
+            </div>
+            <div class="col-md-12 col-sm-12 pd-l-20">
+              <a href="#" class="pd-5">
+                <img src="assets/images/icons/word.svg" alt="" width="50px">
+              </a>
+              <a href="#" class="pd-5">
+                <img src="assets/images/icons/excel.svg" alt="" width="50px">
+              </a>
+              <a href="#" class="pd-5">
+                <img src="assets/images/icons/power.svg" alt="" width="50px">
+              </a>
+              <a href="#" class="pd-5">
+                <img src="assets/images/icons/outlook.svg" alt="" width="50px">
+              </a>
+            </div> -->
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <hr class="pd-t-20 bd-1 mg-b-0 pd-b-0">
+    <div class="row">
+      <div class="col-sm-12 col-lg-8">
+        <div class="card">
+          <div class="card-header d-sm-flex align-items-start justify-content-between">
+            <h6 class="mg-b-0">My Tasks</h6>
+            <div class="mg-0 btn btn-outline-primary btn-sm pd-x-10 pd-y-2" (click)="reloadData()">
+              Refresh <i-feather name="refresh-cw"></i-feather>
+            </div>
+          </div><!-- card-header -->
+          <div class="table-responsive">
+            <table class="table table-dashboard mg-b-0">
+              <thead>
+                <tr>
+                  <th>Start Date</th>
+                  <th>Title</th>
+                  <th>Step Name</th>
+                  <!-- <th>Request</th>
+                  <th>Status</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of tasks; let a = index" (click)="loadiFrame(task)" class="pointer">
+                  <td class="tx-color-03 tx-normal">{{task.start_date | date:'d-M-yyyy, h:mm a'}}</td>
+                  <td class="tx-medium">{{task.title}}</td>
+                  <td class="tx-medium">{{task.step_name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <app-lae [dataLoader]='loadTask' [apiRespondError]='false' [apiAccessError]='false' [longWait]='false'>
+          </app-lae>
+          <div class="tx-center pd-20 tx-bold" *ngIf="!loadTask && !(tasks.length > 0)">
+            Tasks not available
+          </div>
+        </div><!-- card -->
+      </div>
+      <div class="col-sm-12 col-lg-4">
+        <div class="bd bg-gray-50 pd-y-15 pd-x-15 pd-sm-x-20">
+          <h6 class="tx-15 mg-b-3 tx-center">What would you like to see here?</h6>
+          <div class="wd-100p tx-center pd-20">
+            <img src="assets/images/misc/question.svg" width="200px" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="right_col ht-100p" role="main" *ngIf="LoadForm">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 pd-b-0">
+      <div class="dashboard_graph_new">
+        <div class="row x_title">
+          <div class="col-md-6 pd-b-0">
+            <h3 class="pd-r-50">{{iframeData.name ? iframeData.name : iframeData.title}}</h3>
+            <div class="row" *ngIf="iframeData.name === 'Leave Form'">
+              <div class="col-sm-4 pd-b-0 bd-r-0 tx-center bd">
+                <span class="tx-bold tx-12 text-dark">Total Leave</span>
+                <div class="tx-bold tx-12">{{employeeData ? employeeData.totalLeaveCount : 'NA'}}</div>
+              </div>
+              <div class="col-sm-4 pd-b-0 bd-r-0 tx-center bd">
+                <span class="tx-bold tx-12 text-dark">Leave Taken</span>
+                <div class="tx-bold tx-12">{{employeeData ? employeeData.takenLeaveCount : 'NA'}}</div>
+              </div>
+              <div class="col-sm-4 pd-b-0 tx-center bd">
+                <span class="tx-bold tx-12 text-dark">Available Leave</span>
+                <div class="tx-bold green tx-12">{{employeeData ? employeeData.balanceLeaveCount : 'NA'}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pd-b-0 tx-right">
+            <button class="btn btn-secondary btn-sm mg-l-10" (click)="closeForm()">
+              <i-feather name="x"></i-feather> Close
+            </button>
+          </div>
+        </div>
+        <iframe class="full-screen-iframe" task-status='0' [src]="formUrl" name="preview-frame" frameborder="0"
+          noresize="noresize" data-view="fullScreenPreview" allow="geolocation 'self'; autoplay 'self'"
+          class="ht-80v wd-100p">
+        </iframe>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

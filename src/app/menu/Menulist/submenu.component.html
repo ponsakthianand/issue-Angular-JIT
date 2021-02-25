@@ -1,0 +1,42 @@
+<div class="sub_liv_nav" *ngIf="dfx">
+  <a routerLink="{{dashBoardPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+    [routerLinkActiveOptions]="{ exact: true }">
+    <i-feather name="pie-chart"></i-feather> <span>Dashboard</span>
+  </a>
+  <a routerLink="{{jobsPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+    [routerLinkActiveOptions]="{ exact: true }" *ngIf="showadmin || showanalyst">
+    <i-feather name="folder"></i-feather> <span>Discovery</span>
+  </a>
+  <a routerLink="{{classificationModelPath}}" [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }" [routerLinkActiveOptions]="{ exact: true }"
+    *ngIf="showadmin || showanalyst">
+    <i-feather name="layers"></i-feather> <span>Classification</span>
+  </a>
+</div>
+<div class="sub_liv_nav" *ngIf="hub">
+  <a routerLink="{{hubLandingPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+    <i-feather name="briefcase"></i-feather> <span>Workspace</span>
+  </a>
+  <a (click)='open()'>
+    <i-feather name="calendar"></i-feather> <span>Leave Calendar</span>
+  </a>
+</div>
+<div class="sub_liv_nav" *ngIf="cms">
+  <a routerLink="{{newEntityCreationPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+    <i-feather name="file-text"></i-feather> <span>New Entity</span>
+  </a>
+  <a routerLink="{{newClientSetupPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+    <i-feather name="user-plus"></i-feather> <span>New Client</span>
+  </a>
+  <a routerLink="{{newBankAccountPath}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+    <i-feather name="credit-card"></i-feather> <span>New Bank Account</span>
+  </a>
+</div>
+<div class="sub_liv_nav" *ngIf="dms"></div>
+
+<div class="" *ngIf='visible'>
+  <app-drawer [visible]="visible" [subDrawer]="subDrawer" [subModel]="subModel" [subModelDoc]="subModelDoc" [drawerWidth]='drawerWidth'
+    (drOnClose)="close()" (hideDoc)="closeDocShow()">
+    <app-calendar-view></app-calendar-view>
+  </app-drawer>
+</div>

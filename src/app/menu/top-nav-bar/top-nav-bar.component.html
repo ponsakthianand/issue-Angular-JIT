@@ -1,0 +1,54 @@
+<!-- top navigation -->
+<div class="top_nav {{usrname ? 'd-block' : 'd-none'}}">
+  <div class="nav_menu">
+    <div class="nav toggle d-flex wd-50p">
+      <a routerLink="{{hubLandingPath}}" class="navLinkA"><img src="assets/images/branding/logo.svg" class="header_logo"
+          alt=""></a>
+      <app-menu></app-menu>
+    </div>
+    <div class="nav navbar-nav navbar-right d-flex" style="flex-direction: unset;">
+      <div class="avatar d-none d-sm-block mg-r-10 pointer wd-30 ht-30" *ngIf="!setHidden" (click)="closeSearch()">
+        <span class="avatar-initial rounded-circle bg-gray-300">
+          <ion-icon name="close"></ion-icon>
+        </span>
+      </div>
+      <div class="avatar d-none d-sm-block mg-r-10 pointer wd-30 ht-30" #topSearchAll *ngIf="setHidden" (mouseover)="setFocus()" (click)="searchAll()">
+        <span class="avatar-initial rounded-circle bg-gray-300">
+          <ion-icon name="folder-sharp"></ion-icon>
+        </span>
+      </div>
+      <div class="mg-0 wd-400 d-flex">
+        <div class="searchSecs">
+          <i-feather name="search"></i-feather>
+          <input #topSearchkey type="search" class="form-control wd-200 wd-sm-250 bd-gray-400"
+            placeholder="Enter the keywords to search..." (focus)="setFocus()">
+          <!-- <button class="btn btn-white mg-b-0" type="button" id="button-addon2"><i-feather name="search"></i-feather></button> -->
+        </div>
+      </div>
+      <div class="dropdown dropdown-sec tx-13">
+        <div class="avatar mg-l-10 pointer wd-30 ht-30" placement="bottom" data-toggle="dropdown">
+          <span class="avatar-initial rounded-circle tx-primary bg-white">
+            {{usrname ? usrname.charAt(0) : '?'}}
+          </span>
+        </div>
+        <div class="dropdown-menu dropdown-menu-right pd-10">
+          <div class="wd-100p tx-center">
+            <div class="avatar avatar-lg mg-l-35"><span
+                class="avatar-initial rounded-circle">{{usrname ? usrname.charAt(0) : '?'}}</span></div>
+            <h6 class="tx-semibold mg-b-5 pd-t-15 tx-medium tx-uppercase tx-13">
+              {{usrname ? usrname : 'Not Available'}}</h6>
+          </div>
+          <div class="dropdown-divider mg-y-10"></div>
+           <a (click)=(logout()) class="tx-dark dropdown-item tx-center">
+            <i-feather name="log-out"></i-feather> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div [hidden]="setHidden">
+  <div *ngIf='setHiddensec'>
+    <app-searchengine #searchEngine></app-searchengine>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="drawerAlert animated faster {{fade}}">
+  <div class="alertSection animated faster {{slide}}" [ngStyle]="drawerWidth">
+    <a (click)="drOnClosed()" class="drawer_close" style="z-index: 1;">
+      <i-feather name="x"></i-feather>
+    </a>
+    <div class="alertContent ht-90v" [perfectScrollbar]="config">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="docView animated faster {{subDrawer.docSlide}}" *ngIf="subDrawer.docShow">
+    <h6 class="mg-0">{{subModel.child}}</h6>
+    <a (click)="closeDocShow()" class="drawer_close">
+      <i-feather name="x"></i-feather>
+    </a>
+    <div class="docData ht-80v" [perfectScrollbar]="config">
+      <div class="randomDoc">
+        <a (click)="copyText(docs.uri)" class="tx-color-01 d-block" target="_blank" *ngFor="let docs of subModelDoc">
+          <div class="fileNmaeData">
+            <div class="fiv-hct fiv-icon-{{docs.resourcename.split('.')[1].toLowerCase()}}"></div>
+            <div class="name_secs" (click)="fileEvent(docs.uri)">
+              <span class="ellipsis wd-90p d-block tx-bold">{{docs.resourcename}}</span>
+              <span class="ellipsis wd-90p d-block tx-color-03">{{docs.uri}}</span>
+            </div>
+            
+          </div>
+        </a>
+      </div>
+      <app-lae [dataLoader]='dataDrawDocLoader' [apiRespondError]='apiDrawDocRespondError' [longWait]='longDrawDocWait'>
+      </app-lae>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.4)" size="default" type="ball-spin-clockwise">  
+    <p style="color: black">Loading... </p>  
+    </ngx-spinner>

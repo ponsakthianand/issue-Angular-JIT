@@ -1,0 +1,166 @@
+// CSS Variables for Custom Theme Functions
+  :root {
+    --bg-color:                     #ffffff;
+    --text-color:                   #040506;
+    --dropdown-bg:                  #f1f1f1;
+    --dropdown-border:              rgba(131, 146, 165, .27);
+    --border-color:                 #dcdcdc;
+    --login-shadow-color:           #d5d5da;
+
+    --text-color-dark:              #1c273c;
+    --bg-light-color:               rgba(131, 146, 165, .05);
+    --chart-one:                    rgba(0, 153, 169, .38);
+    --chart-two:                    rgba(27, 46, 75, .38);
+  }
+
+// SCSS Variables
+  // Theme Change
+  $bg-color:                        var(--bg-color);
+  $text-color:                      var(--text-color);
+  $text-color-dark:                 var(--text-color-dark);
+  $dropdown-bg:                     var(--dropdown-bg);
+  $dropdown-border:                 var(--dropdown-border);
+  $neubox-color:                    #171c21;
+  $divider-color:                   var(--border-color);
+  $border-color:                    #ccc;
+  $bg-light-color:                  var(--bg-light-color);
+  $login-shadow-color:              var(--login-shadow-color);
+
+  $big-shadow: 0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3), 0 -18px 60px -10px rgba(0,0,0,0.025);
+
+  //DFX Color
+  $dfx-blue:                        #0071bc;
+
+  // Brand Colors
+  $color-brand-01:                  #2196f3;
+  $color-brand-02:                  #042893;
+  $color-brand-03:                  #1ce1ac;
+  $color-brand-01-light:            lighten($color-brand-01, 25%);
+
+  // Apps Colors
+  $launchpad-color:                 $color-brand-01;
+  $dashboard-color:                 #2196f3;
+  $discovery-color:                 #0099a9;
+  $classification-color:            #3080E8;
+  $searchengine-color:              #4030E8;
+
+  // Background
+  $body-color:                      $white;
+  $wave-bg-1:                       rgba(#607796, .05);
+  $wave-bg-2:                       rgba(#607796, .05);
+  $wave-bg-3:                       rgba(#607796, .05);
+
+  // UI Colors
+  $color-ui-01:                     #f5f6fa;
+  $color-ui-02:                     #e5e9f2;
+  $color-ui-03:                     #c0ccda;
+  $color-ui-04:                     #607796;
+
+  // Inverse Colors
+  $color-inverse-01:                #3b4b5d;
+  $color-inverse-02:                #1b2e4b;
+
+  // Border
+  $input-border-color:              rgba(darken($color-ui-02, 50%), .30);
+  $border-color:                    rgba(darken($color-ui-02, 50%), .16);
+  $border-color:                    rgba(darken($color-ui-02, 50%), .16);
+
+  // Text Colors
+  $color-text-01:                   $color-inverse-01;
+  $color-text-02:                   $color-inverse-02;
+  $color-text-03:                   #607796;
+  $color-text-04:                   #121212;
+
+  //Object colors
+  $card-bg:                         $white;
+  $card-border-color:               $border-color;
+  $card-shadow-color:               rgba($color-text-04, .05);
+
+  $link-color:                      $color-brand-01;
+  $close-color:                     $color-text-02;
+  $input-group-addon-bg:            $color-ui-01;
+  $skin-ui-01:                      desaturate($blue, 20%);
+  $headings-color:                  $color-text-01;
+  $popover-border-color:            $border-color;
+
+  //Breadcrumb
+  $breadcrumb-color:                lighten($color-brand-01, 10%);
+
+  //Dropdown
+  $dropdown-bg:                     $white;
+  $dropdown-text-color:             $color-inverse-01;
+  $dropdown-link-color:             $color-inverse-01;
+  $dropdown-text-active-color:      $color-brand-01;
+  $dropdown-border:                 $border-color;
+
+  //List Group
+  $listgroup-bg:                    $color-brand-01;
+  $listgroup-text-color:            $white;
+  $listgroup-link-color:            $white;
+
+  //Footer
+  $footer-bg:                       $white;
+  $footer-text-color:               $color-inverse-01;
+  $footer-link-color:               $color-inverse-02;
+
+  //Headers
+  $header-color:                    $white;
+  $header-border-color:             $border-color;
+  $header-text-color:               $color-inverse-01;
+  $header-text-active-color:        $color-brand-01;
+  $header-link-color:               $white;
+
+  //Language HTML
+  $language-html-bg:                $white;
+
+  //Sidebar
+  $sidebar-bg:                      $color-brand-01;
+  $sidebar-text-color:              $white;
+  $sidebar-link-color:              $white;
+  $sidebar-border:                  $border-color;
+
+  //Calender
+  $calender-bg:                     $color-brand-01;
+  $calender-side-bg:                $color-brand-01;
+  $calender-other-month-bg:         $color-brand-01;
+  $calender-text-color:             $white;
+  $calender-link-color:             $white;
+  $calender-border:                 $border-color;
+
+  //Chat
+  $chat-bg:                         $color-brand-01;
+  $chat-side-bg:                    $color-brand-01;
+  $chat-message-bg:                 $color-brand-01;
+  $chat-text-color:                 $white;
+  $chat-link-color:                 $white;
+  $chat-border:                     $border-color;
+
+  //Contact
+  $contact-bg:                      $color-brand-01;
+  $contact-side-bg:                 $color-brand-01;
+  $contact-message-bg:              $color-brand-01;
+  $contact-text-color:              $white;
+  $contact-link-color:              $white;
+  $contact-border:                  $border-color;
+
+  //Mail
+  $mail-bg:                         $color-brand-01;
+  $mail-side-bg:                    $color-brand-01;
+  $mail-unread-bg:                  $color-brand-01;
+  $mail-selected-bg:                $color-brand-01;
+  $mail-message-bg:                 $color-brand-01;
+  $mail-text-color:                 $white;
+  $mail-link-color:                 $white;
+  $mail-border:                     $border-color;
+
+  //Filemanager
+  $filemgr-bg:                      $color-brand-01;
+  $filemgr-side-bg:                 $color-brand-01;
+  $filemgr-file-bg:                 $color-brand-01;
+  $filemgr-folder-bg:               $color-brand-01;
+  $filemgr-text-color:              $white;
+  $filemgr-link-color:              $white;
+  $filemgr-border:                  $border-color;
+
+  //Logo Image
+  $logo-image:                      no-repeat center 12px;
